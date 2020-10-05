@@ -12,6 +12,10 @@ var app = express();
 var http = require('http')
 var server = http.createServer(app)
 
+var utils = require('./config/utils')
+
+var port = 3000
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -41,6 +45,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-server.listen('3000', () => console.log(`Example app listening on port ${3000}!`))
+server.listen(port, () => console.log(`You application is running here http://${utils.ServerHost}:${port}`))
 
 module.exports = app;
