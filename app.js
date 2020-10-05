@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var useraa = require('./routes/user')
 
 var app = express();
 
@@ -14,7 +15,22 @@ var server = http.createServer(app)
 
 var utils = require('./config/utils')
 
+var loadRoute = require('./untils/index.js');
+
+
 var port = 3000
+
+app.all('*', function(req, res, next) {
+ 
+  res.header("Access-Control-Allow-Origin", "*");//项目上线后改成页面的地址
+    
+  res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
+    
+  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    
+  next();
+    
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +44,11 @@ app.use(cookieParser());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/user', useraa)
+
+
+
+// loadRoute.init(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
