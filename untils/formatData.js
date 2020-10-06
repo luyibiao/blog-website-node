@@ -1,7 +1,7 @@
 // 格式化数据
 function formatRes(res, isformatObj = true) {
   if (!res) return {}
-  if (res.code == '00') return res
+  if (res.code !== '1') return res
   if (isformatObj && res.data.length) {
     res.data = res.data[0]
     return res
