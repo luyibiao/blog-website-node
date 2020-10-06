@@ -1,34 +1,44 @@
 var mysql = require('mysql')
 var dbConfig = require('./db_config')
 const pool = mysql.createPool(dbConfig)
+const variable = require('../untils/variable')
 
-function responseDoReturn(err, ret) {
-  let result = {}
+// function formatRes(res) {
+//   if (!res) return {}
+//   if (res && Array.isArray(res)) {
+//     return {
+//       list: res
+//     }
+//   } else {
+//     return {
+//       ...res
+//     }
+//   }
+// }
+
+function responseDoReturn(err, res) {
+  let result = variable.result
   if (err) {
-    result = {
-      code: '100',
-      msg: 'err' + err
-    }
+    result.code = '00'
+    result.msg = 'err' + err
+    delete result.data
   } else {
-    result = {
-      code: '0',
-      msg: 'success',
-      data: ret
-    }
+    result.code = '1'
+    result.msg = 'success'
+    result.data = res
   }
   return result
 }
 
 // 封装query之sql带不占位符func
 function query(sql, callback) {
-  console.log(33333)
   pool.getConnection(function(err, connection) {
     if (err) {
-      callback(responseDoReturn(err,null))
+      callback(responseDoReturn(err, null))
     } else {
       connection.query(sql, function (err, rows) {
         connection.release();
-        callback(responseDoReturn(err,rows));                
+        callback(responseDoReturn(err, rows));                
     });
     }
   })
