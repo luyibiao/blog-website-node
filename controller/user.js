@@ -1,10 +1,10 @@
 let model = require('../model/user.js');
+let uthelper = require('../untils/formatData')
 
 let api = {
   getUser(req, res, next) {
     model.getUser(result => {
-      res.json(result)
-      console.log(result, 22222)
+      res.json(uthelper.formatRes(result))
     })
   }
 }
