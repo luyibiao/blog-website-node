@@ -5,7 +5,7 @@ let api = {
   getUser(req, res, next) {
     model.getUser(result => {
       res.json(uthelper.formatRes(result))
-    })
+    }, req)
   }
 }
 
