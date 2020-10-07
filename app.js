@@ -22,15 +22,22 @@ function getCookie(req) {
   return cookies = req.cookies ? req.cookies.token || '' : ''
 }
 
+const rouArrs = [
+  '/user/login'
+]
 // token检验
 router.use((req, res, next) => {
-  token.verifyToken(getCookie(req)).then(res => {
-    // 解密成功，将token赋值给req
-    req.decoded = res
+  if (rouArrs.includes(req.originalUrl)) {
     next()
-  }).catch(e => {
-    res.json(codes.TokenErr())
-  })
+  } else {
+    token.verifyToken(getCookie(req)).then(res => {
+      // 解密成功，将token赋值给req
+      req.decoded = res
+      next()
+    }).catch(e => {
+      res.json(codes.TokenErr())
+    })
+  }
 })
 
 global.$router = router
