@@ -13,7 +13,7 @@ var loadRoute = require('./routes')
 const token = require('./token/token')
 
 const router = express.Router();
-const code = require('./untils/code')
+const codes = require('./untils/code')
 
 const port = 3000
 
@@ -24,16 +24,12 @@ function getCookie(req) {
 
 // token检验
 router.use((req, res, next) => {
-  const cookies = getCookie(req)
-  token.verifyToken(cookies).then(res => {
+  token.verifyToken(getCookie(req)).then(res => {
     // 解密成功，将token赋值给req
     req.decoded = res
     next()
   }).catch(e => {
-    res.json({
-      msg: 'cookie验证失败',
-      code: code.tokenerr
-    })
+    res.json(codes.TokenErr())
   })
 })
 
