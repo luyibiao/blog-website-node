@@ -1,22 +1,15 @@
 var mysql = require('mysql')
 var dbConfig = require('./db_config')
 const pool = mysql.createPool(dbConfig)
-const variable = require('../untils/variable')
-const code = require('../untils/code')
+const codes = require('../untils/code')
 
 
 function responseDoReturn(err, res, c) {
-  let result = variable.result
   if (err) {
-    result.code = c || code.error
-    result.msg = err
-    delete result.data
+    return codes.error(err, c)
   } else {
-    result.code = code.success
-    result.msg = 'success'
-    result.data = res
+    return codes.success(res)
   }
-  return result
 }
 
 // 封装query之sql带不占位符func

@@ -18,9 +18,11 @@ arrs.map(v => {
 })
 
 // 创建token
-function createToken() {
+function createToken(info = {
+  name: 'admin'
+}) {
  // 获取签发 JWT 时需要用的密钥
- return jwt.sign({ name: 11 }, list[0], { algorithm: 'RS256' })
+ return jwt.sign(info, list[0], { algorithm: 'RS256', expiresIn: 60 })
 }
 
 // 验证 Token
@@ -32,7 +34,6 @@ function verifyToken(token) {
         reject(err)
         return
       } 
-      console.log(7878787)
       reslove(decoded)
     })
   })
