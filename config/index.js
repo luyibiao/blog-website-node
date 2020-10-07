@@ -28,6 +28,7 @@ function query(sql, callback) {
 
 // 封装query之sql带占位符
 function queryArgs(sql, args, callback) {
+  console.log(args, 'nnnnnn')
   pool.getConnection(function(err, connection) {
     if (err) {
       callback(responseDoReturn(err,null))

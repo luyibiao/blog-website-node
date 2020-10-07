@@ -1,5 +1,5 @@
 const user_sql = {
-  selectAll:'select id from user',
+  loginSql: 'select * from user where userName = ? AND PASSWORD = ?',
 }
 
 module.exports = user_sql
