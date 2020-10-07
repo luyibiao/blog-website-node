@@ -3,23 +3,41 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
 var app = express();
-
 var http = require('http')
 var server = http.createServer(app)
-
 var utils = require('./config/utils')
 
-var loadRoute = require('./untils/index.js');
+var loadRoute = require('./routes')
 
-const cors = require( 'cors');
+const token = require('./token/token')
 
+const router = express.Router();
+const code = require('./untils/code')
 
-var port = 3000
+const port = 3000
+
+// 获取传过来的token值
+function getCookie(req) {
+  return cookies = req.cookies ? req.cookies.token || '' : ''
+}
+
+// token检验
+router.use((req, res, next) => {
+  const cookies = getCookie(req)
+  token.verifyToken(cookies).then(res => {
+    // 解密成功，将token赋值给req
+    req.decoded = res
+    next()
+  }).catch(e => {
+    res.json({
+      msg: 'cookie验证失败',
+      code: code.tokenerr
+    })
+  })
+})
+
+global.$router = router
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,11 +47,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
 
 
 loadRoute.init(app);
@@ -42,12 +55,6 @@ loadRoute.init(app);
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-// app.use(cors ({
-//   origin: ['http://localhost:8080'], //指定接受的地址
-//   methods: ['GET','POST'], //指定接受的请求类型
-//   allowedHeaders:['Content-Type','Authorization'] //指定header
-// }))
 
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
