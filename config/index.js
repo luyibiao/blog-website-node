@@ -4,23 +4,25 @@ const pool = mysql.createPool(dbConfig)
 const codes = require('../untils/code')
 
 
-function responseDoReturn(err, res, c) {
-  if (err) {
-    return codes.error(err, c)
-  } else {
-    return codes.success(res)
-  }
-}
+// function responseDoReturn(err, res, c) {
+//   if (err) {
+//     return codes.error(err, c)
+//   } else {
+//     return codes.success(res)
+//   }
+// }
 
 // 封装query之sql带不占位符func
 function query(sql, callback) {
   pool.getConnection(function(err, connection) {
     if (err) {
-      callback(responseDoReturn(err, null))
+      callback(err)
+      // callback(responseDoReturn(err, null))
     } else {
       connection.query(sql, function (err, rows) {
         connection.release();
-        callback(responseDoReturn(err, rows));                
+        callback(err, rows)
+        // callback(responseDoReturn(err, rows));                
     });
     }
   })
@@ -28,14 +30,15 @@ function query(sql, callback) {
 
 // 封装query之sql带占位符
 function queryArgs(sql, args, callback) {
-  console.log(args, 'nnnnnn')
   pool.getConnection(function(err, connection) {
     if (err) {
-      callback(responseDoReturn(err,null))
+      // callback(responseDoReturn(err,null))
+      callback(err)
     } else {
       connection.query(sql, args,function (err, rows) {
         connection.release();
-        callback(responseDoReturn(err,rows));  
+        callback(err, rows)
+        // callback(responseDoReturn(err,rows));  
       });
     }
   })

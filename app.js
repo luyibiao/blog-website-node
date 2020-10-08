@@ -17,6 +17,8 @@ const codes = require('./untils/code')
 
 const port = 3000
 
+const helpers = require('./untils/helper')
+
 // 获取传过来的token值
 function getCookie(req) {
   return cookies = req.cookies ? req.cookies.token || '' : ''
@@ -35,12 +37,16 @@ router.use((req, res, next) => {
       req.decoded = res
       next()
     }).catch(e => {
-      res.json(codes.TokenErr())
+      // token验证失败
+      res.json(codes.results.resultTokenErr())
     })
   }
 })
 
 global.$router = router
+global.$getArgs = helpers.getValue
+global.$formatRes = helpers.formatRes
+global.$resultFn = codes.results
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -51,7 +57,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
+// 加载全部路由
 loadRoute.init(app);
 
 // catch 404 and forward to error handler
