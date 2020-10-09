@@ -8,7 +8,9 @@ const mysql = {
   // 用户密码
   password: 'mysqlroot.',
   // 数据库名字
-  database: 'blog-sql'
+  database: 'blog-sql',
+  // 强制日期类型（TIMESTAMP，DATETIME，DATE）以字符串形式返回
+  dateStrings: true
 }
 
 module.exports = mysql

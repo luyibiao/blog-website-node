@@ -17,6 +17,7 @@ function getUser(req, res) {
       }
       res.json(r)
     }
+    return 
   })
 }
 
