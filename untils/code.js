@@ -11,11 +11,11 @@ const codes = {
 }
 
 // 成功返回字段
-function success(res) {
+function success(res, isformatObj) {
   return {
     code: codes.success,
     msg: 'success',
-    data: global.$formatRes(res)
+    data: global.$formatRes(res, isformatObj)
   }
 }
 
@@ -23,7 +23,7 @@ function success(res) {
 function error(err, code) {
   return {
     code: code || codes.err,
-    msg: err
+    msg: err || '请求失败'
   }
 }
 
@@ -45,8 +45,8 @@ function nouser() {
 
 const results = {
   // 成功
-  resultSuccess: function(res) {
-    return success(res)
+  resultSuccess: function(res, isformatObj = true) {
+    return success(res, isformatObj)
   },
   // 失败
   resultErr: function(err, code) {

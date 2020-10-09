@@ -5,6 +5,9 @@ let model = require('../model/label.js');
 let api = {
   addLabel(req, res, next) {
     model.addLabel(req, res)
+  },
+  queryLabel(req, res, next) {
+    model.queryLabel(req, res)
   }
 }
 
