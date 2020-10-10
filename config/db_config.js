@@ -10,7 +10,8 @@ const mysql = {
   // 数据库名字
   database: 'blog-sql',
   // 强制日期类型（TIMESTAMP，DATETIME，DATE）以字符串形式返回
-  dateStrings: true
+  dateStrings: true,
+  multipleStatements: true
 }
 
 module.exports = mysql
