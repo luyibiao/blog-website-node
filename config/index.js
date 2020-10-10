@@ -1,7 +1,6 @@
 var mysql = require('mysql')
 var dbConfig = require('./db_config')
 const pool = mysql.createPool(dbConfig)
-const codes = require('../untils/code')
 
 
 // function responseDoReturn(err, res, c) {

@@ -15,7 +15,7 @@ function success(res, isformatObj) {
   return {
     code: codes.success,
     msg: 'success',
-    data: global.$formatRes(res, isformatObj)
+    data: global.$overall.formatRes(res, isformatObj)
   }
 }
 

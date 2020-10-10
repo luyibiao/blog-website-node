@@ -3,7 +3,7 @@ var db = require('../config/index.js');
 var token = require('../token/token')
 
 function getUser(req, res) {
-  db.queryArgs(userSql.loginSql, global.$getArgs(req, 'account', 'password'), function(err, result) {
+  db.queryArgs(userSql.loginSql, global.$overall.getArgs(req, 'account', 'password'), function(err, result) {
     if (err) {
       global.$resultFn.resultErr(err)
     } else {
