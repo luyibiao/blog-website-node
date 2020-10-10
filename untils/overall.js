@@ -30,14 +30,35 @@ function setPagination(req) {
    * @param pageIndex(当前页)
    * @param pageSize(一页多少条)
    */
-  let [pageIndex, pageSize] = getArgs(req, 'pageIndex', 'pageSize')
+  let [pageIndex = 0, pageSize = 10] = getArgs(req, 'pageIndex', 'pageSize')
   pageSize = parseInt(pageSize)
   pageIndex = parseInt(pageIndex) * pageSize
   return [pageIndex, pageSize]
 }
 
+// 派发分页参数设置
+function getPagination(pageIndex, pageSize, total) {
+  return {
+    // 当前页数
+    pageIndex: (pageIndex / pageSize) + 1  ,
+    // 当前要查的条数
+    pageSize,
+    // 总条数
+    total: getTotal(total),
+    // 总页数
+    countPage: Math.ceil(getTotal(total) / pageSize)
+  }
+}
+
+function getTotal(t) {
+  t = t || []
+  if (!t.length) return 0
+  return Object.values(t[0])[0]
+}
+
 module.exports = {
   getArgs,
   formatRes,
-  setPagination
+  setPagination,
+  getPagination
 }
