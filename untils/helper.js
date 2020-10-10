@@ -1,10 +1,4 @@
 
-function getValue(opt, ...args) {
-  if (!opt || !opt.body) return []
-  args = args || []
-  return args.map(v => opt.body[v])
-}
-
 // 格式化时间
 // @param validDate 任何可以new Date()的有效日期
 // @param fmt 形如 "yyyy-MM-dd hh:mm:ss", "MM月-dd日" 等字符串
@@ -31,33 +25,6 @@ const formatDatetime = function(validDate, fmt) {
   return fmt;
 }
 
-const getFormatTime = arrs => arrs.map(v => {
-  v.create_time = formatDatetime(v.create_time, 'yyyy-MM-dd')
-  return v
-})
-
-// 格式化数据
-function formatRes(res, isformatObj = true) {
-  if (!res) return {}
-  if (Array.isArray(res)) {
-    // res = getFormatTime(res)
-   
-    if (isformatObj) {
-      return {
-        ...res[0] || {}
-      }
-    }
-    return {
-      list: res
-    }
-  } else {
-    return JSON.stringify(res) === '{}' ? {} : {...res}
-  }
-}
-
-
-
 module.exports = {
-  getValue,
-  formatRes
+  formatDatetime
 }

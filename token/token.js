@@ -11,9 +11,9 @@ const arrs = [
 ]
 
 let list = []
-arrs.map(v => {
+arrs.map((v, index) => {
   fs.readFile(v, 'utf-8', function(err, data) {
-    list.push(data)
+    list[index] = data
   })
 })
 
@@ -21,8 +21,9 @@ arrs.map(v => {
 function createToken(info = {
   name: 'admin'
 }) {
+  console.log(list[0], 'asfdsfd')
  // 获取签发 JWT 时需要用的密钥
- return jwt.sign(info, list[0], { algorithm: 'RS256', expiresIn: 2 * 60 * 60 * 1000 })
+ return jwt.sign(info, list[0], { algorithm: 'RS256', expiresIn: 60 * 60 * 2 })
 }
 
 // 验证 Token

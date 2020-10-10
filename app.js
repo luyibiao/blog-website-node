@@ -17,7 +17,7 @@ const codes = require('./untils/code')
 
 const port = 3000
 
-const helpers = require('./untils/helper')
+const overall = require('./untils/overall')
 
 // 获取传过来的token值
 function getCookie(req) {
@@ -44,8 +44,7 @@ router.use((req, res, next) => {
 })
 
 global.$router = router
-global.$getArgs = helpers.getValue
-global.$formatRes = helpers.formatRes
+global.$overall = overall
 global.$resultFn = codes.results
 
 // view engine setup
