@@ -1,11 +1,25 @@
 // 全局方法文件
 
+const mysql = require('mysql')
+
 // sql占位符获取
 function getArgs(opt, ...args) {
   if (!opt || !opt.body) return []
   args = args || []
   return args.map(v => opt.body[v])
 }
+
+// 请求参数获取
+function getReqParams(opt, ...keys) {
+  if (!opt || !opt.body) return {}
+  const params = opt.body
+  let result = {}
+  keys.map(v => {
+    result[v] = params[v] || ''
+  })
+  return result
+}
+
 
 // 请求结果格式化
 function formatRes(res, isformatObj = true) {
@@ -22,6 +36,20 @@ function formatRes(res, isformatObj = true) {
   } else {
     return JSON.stringify(res) === '{}' ? {} : {...res}
   }
+}
+
+// 拼接条件查询语句sql语句
+function relyOn(key, req, ispage = true) {
+  key = key || []
+  const params = req.body
+  // 提取
+  let str = ``
+  key.filter(v => v !=='pageIndex' && v !== 'pageSize' ).map((v, index) => {
+    if (params[v]) {
+      str += `${index === 0 && 'where '}${index > 0 ? 'and ' : ''}${v} = ${mysql.escape(params[v])}`
+    }
+  })
+  return str
 }
 
 // 传入mysqp分页参数设置
@@ -58,7 +86,9 @@ function getTotal(t) {
 
 module.exports = {
   getArgs,
+  getReqParams,
   formatRes,
   setPagination,
-  getPagination
+  getPagination,
+  relyOn
 }
