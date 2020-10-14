@@ -21,7 +21,6 @@ arrs.map((v, index) => {
 function createToken(info = {
   name: 'admin'
 }) {
-  console.log(list[0], 'asfdsfd')
  // 获取签发 JWT 时需要用的密钥
  return jwt.sign(info, list[0], { algorithm: 'RS256', expiresIn: 60 * 60 * 2 })
 }
