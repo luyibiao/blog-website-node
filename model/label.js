@@ -52,6 +52,7 @@ function deleteLabel(req, res) {
       res.json(global.$resultFn.resultSuccess({}))
     }
   })
+  return
 }
 
 // 查询标签
@@ -80,6 +81,7 @@ function queryLabel(req, res) {
     }
     return
   })
+  return
 }
 
 module.exports = {
