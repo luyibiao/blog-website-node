@@ -46,6 +46,7 @@ router.use((req, res, next) => {
 global.$router = router
 global.$overall = overall
 global.$resultFn = codes.results
+global.hostUrl = `http://${utils.ServerHost}:${port}`
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -55,6 +56,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use('/static', express.static(__dirname + '/images'));
 
 // 加载全部路由
 loadRoute.init(app);
@@ -85,6 +87,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-server.listen(port, () => console.log(`You application is running here http://${utils.ServerHost}:${port}`))
+
+
+server.listen(port, () => console.log(`You application is running here ${global.hostUrl}`))
 
 module.exports = app;
