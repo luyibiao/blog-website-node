@@ -69,8 +69,17 @@ const ARTICLE_TYPE = {
   STUDY: 3, // 书屋
 }
 
+// 文章状态
+const status = {
+  // 上线装填
+  online: 'LINE',
+  // 下线状态
+  Offline: 'OFFLINE',
+}
+
 module.exports = {
   results,
   codes,
-  ARTICLE_TYPE
+  ARTICLE_TYPE,
+  status
 }

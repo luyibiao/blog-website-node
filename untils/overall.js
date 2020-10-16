@@ -1,6 +1,8 @@
 // 全局方法文件
 
 const mysql = require('mysql')
+const fs = require('fs')
+const path = require('path')
 
 // sql占位符获取
 function getArgs(opt, ...args) {
@@ -16,6 +18,17 @@ function getReqParams(opt, ...keys) {
   let result = {}
   keys.map(v => {
     result[v] = params[v] || ''
+  })
+  return result
+}
+
+// 获取全部请求参数
+function getReqParamsAll(opt) {
+  if (!opt || !opt.body) return {}
+  const params = opt.body
+  let result = {}
+  Object.keys(params).map(v => {
+    result[v] = params[v]
   })
   return result
 }
@@ -78,6 +91,29 @@ function getPagination(pageIndex, pageSize, total) {
   }
 }
 
+ // 移入真实路径
+function freameuUploadImg(paths, fName) {
+  
+  return new Promise((resolve, reject) => {
+    const uploadDir = path.join(__dirname, '../images/real/' + fName) ;
+    console.log(333333)
+    fs.copyFile(paths, uploadDir, function(err) {
+      if (err) {
+        console.log(666666)
+        reject(err)
+        return
+          // res.end();
+      }
+      resolve(
+        {url: global.hostUrl + '/static/real/' + fName}
+      )
+      return
+  })
+  // const sou = path.join(__dirname, '../images/real/' )
+  // fs.copyFile(paths, uploadDir, )
+  });
+}
+
 function getTotal(t) {
   t = t || []
   if (!t.length) return 0
@@ -87,8 +123,10 @@ function getTotal(t) {
 module.exports = {
   getArgs,
   getReqParams,
+  getReqParamsAll,
   formatRes,
   setPagination,
   getPagination,
-  relyOn
+  relyOn,
+  freameuUploadImg
 }
