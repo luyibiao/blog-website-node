@@ -1,7 +1,6 @@
 
 const formidable = require('formidable');
 const path = require('path')
-const fs = require('fs')
 
 global.$router.post('/upload', function(req, res, next) {
     let form = new formidable.IncomingForm()
@@ -15,7 +14,7 @@ global.$router.post('/upload', function(req, res, next) {
         return
       }
       const { file } = files
-      let fName = (new Date()).getTime();
+      let fName = file.name.split('.')[0] + (new Date()).getTime();
         switch (file.type){
           case "image/jpeg":
               fName = fName + ".jpg";
