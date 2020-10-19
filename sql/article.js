@@ -1,5 +1,16 @@
 const mysql = require('mysql')
 
+function getTime(s, req) {
+  const create_time = global.$overall.getReqParams(req, 'create_time').create_time
+  if (!create_time) return ``
+  let s1 = `date(create_time) between '${create_time}' and '${create_time}' `
+  if (s) {
+    return s1
+  } else {
+    return `where ${s1}`
+  }
+}
+
 function addSQL(params, keys) {
   let s = `insert into article set `
   keys.map((v, index) => {
@@ -9,8 +20,11 @@ function addSQL(params, keys) {
 }
 
 function query(key, req) {
-  const s1 = `select * from article ` + global.$overall.relyOn(key, req) + 'ORDER BY create_time desc limit ?, ?'
-  const s2 = `;select count(*) from article ` + global.$overall.relyOn(key, req, false)
+  const s = global.$overall.relyOn(key, req, true)
+  const s0 = `select * from article ` + s + getTime(s, req)
+  const s1 = s0 + 'ORDER BY create_time desc limit ?, ?'
+  const s2 = `;${s0}`
+  console.log(s1)
   return s1 + s2 
 }
 
@@ -29,7 +43,7 @@ const sql = {
     return addSQL(params, keys)
   },
   // 查询文章
-  query: function(req, ...keys) {
+  query: function(req, keys) {
     return query(keys, req)
   },
   // 修改文章

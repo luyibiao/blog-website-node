@@ -19,17 +19,18 @@ function check(params, res) {
     res.json(global.$resultFn.resultErr('文章内容不能为空'))
     return false
   }
+  return true
 }
 // 增加文章
 function add(req, res) {
   const params = global.$overall.getReqParamsAll(req)
   if (!check(params, res)) return
+  
   global.$overall.freameuUploadImg(params.logoPath, params.logonName).then(r => {
     params.logo = r.url
     const arrs = [
       'title', 'author', 'label', 'content', 'contentdesc', 'type', 'draft', 'status', 'logo'
     ]
-    // console.log(params, '99999')
     db.query(sql.add(params, ...arrs), (err, result) => {
       if (err) {
         res.json(global.$resultFn.resultErr(err))
@@ -47,7 +48,7 @@ function add(req, res) {
 function query(req, res) {
   const pagesList = global.$overall.setPagination(req)
   const arrs = [
-    'title', 'create_time', 'type'
+    'title', 'create_time', 'type', 'author', 'status', 'hot_comments', 'topping', 'draft'
   ]
   db.queryArgs(sql.query(req, arrs), pagesList, (err, result) => {
     if (err) {

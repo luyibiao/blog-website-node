@@ -52,18 +52,28 @@ function formatRes(res, isformatObj = true) {
 }
 
 // 拼接条件查询语句sql语句
-function relyOn(key, req, ispage = true) {
-  key = key || []
+function relyOn(key = [], req, empty = true) {
   const params = req.body
-  // 提取
+  let arr = []
+  const filters = [
+    'pageIndex', 'pageSize', 'create_time', 'update_time', 'startTime', 'endTime'
+  ]
+  // 过滤掉数组中的参数
+  arr = key.filter(v => !filters.includes(v) )
   let str = ``
-  key.filter(v => v !=='pageIndex' && v !== 'pageSize' ).map((v, index) => {
+  
+  if (empty) {
+    arr = arr.filter(v => params[v] !== '' && params[v] !== undefined)
+  }
+  arr.map((v, index) => {
     if (params[v]) {
       str += `${index === 0 && 'where '}${index > 0 ? 'and ' : ''}${v} = ${mysql.escape(params[v])}`
     }
   })
   return str
 }
+
+
 
 // 传入mysqp分页参数设置
 function setPagination(req) {
@@ -96,21 +106,16 @@ function freameuUploadImg(paths, fName) {
   
   return new Promise((resolve, reject) => {
     const uploadDir = path.join(__dirname, '../images/real/' + fName) ;
-    console.log(333333)
     fs.copyFile(paths, uploadDir, function(err) {
       if (err) {
-        console.log(666666)
         reject(err)
         return
-          // res.end();
       }
       resolve(
         {url: global.hostUrl + '/static/real/' + fName}
       )
       return
   })
-  // const sou = path.join(__dirname, '../images/real/' )
-  // fs.copyFile(paths, uploadDir, )
   });
 }
 
