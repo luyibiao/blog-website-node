@@ -67,7 +67,7 @@ function relyOn(key = [], req, empty = true) {
   }
   arr.map((v, index) => {
     if (params[v]) {
-      str += `${index === 0 && 'where '}${index > 0 ? 'and ' : ''}${v} = ${mysql.escape(params[v])}`
+      str += `${index === 0 ? 'where ' : ''}${index > 0 ? 'and ' : ''}${v} = ${mysql.escape(params[v])}`
     }
   })
   return str

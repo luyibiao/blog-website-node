@@ -22,9 +22,8 @@ function addSQL(params, keys) {
 function query(key, req) {
   const s = global.$overall.relyOn(key, req, true)
   const s0 = `select * from article ` + s + getTime(s, req)
-  const s1 = s0 + 'ORDER BY create_time desc limit ?, ?'
-  const s2 = `;${s0}`
-  console.log(s1)
+  const s1 = s0 + ' ORDER BY create_time desc limit ?, ?'
+  const s2 = `;select count(*) from article ` + s + getTime(s, req)
   return s1 + s2 
 }
 
@@ -49,6 +48,10 @@ const sql = {
   // 修改文章
   update: function(params, ...keys) {
     return update(params, keys)
+  },
+  // 查询文章详情
+  quertyDetail: function() {
+    return `select * from article where id = ?` 
   }
 }
 

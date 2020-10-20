@@ -25,7 +25,7 @@ function getCookie(req) {
 }
 
 const rouArrs = [
-  '/user/login'
+  '/user/login', '/overall/queryArticleType'
 ]
 // token检验
 router.use((req, res, next) => {

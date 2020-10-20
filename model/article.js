@@ -22,30 +22,30 @@ function check(params, res) {
   return true
 }
 // 增加文章
-function add(req, res) {
+async function add(req, res) {
   const params = global.$overall.getReqParamsAll(req)
   if (!check(params, res)) return
-  
-  global.$overall.freameuUploadImg(params.logoPath, params.logonName).then(r => {
-    params.logo = r.url
-    const arrs = [
-      'title', 'author', 'label', 'content', 'contentdesc', 'type', 'draft', 'status', 'logo'
-    ]
-    db.query(sql.add(params, ...arrs), (err, result) => {
-      if (err) {
-        res.json(global.$resultFn.resultErr(err))
-      } else {
-        res.json(global.$resultFn.resultSuccess({}))
-      }
+  if (params.logoPath) {
+    const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
+      res.json(global.$resultFn.resultErr(e))
     })
-  }).catch(e => {
-    res.json(global.$resultFn.resultErr(e))
+    params.logo = u.url
+  }
+  const arrs = [
+    'title', 'author', 'label', 'content', 'contentdesc', 'type', 'draft', 'status', 'logo'
+  ]
+  db.query(sql.add(params, ...arrs), (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess({}))
+    }
   })
   return
 }
 
 // 查询文章
-function query(req, res) {
+async function query(req, res) {
   const pagesList = global.$overall.setPagination(req)
   const arrs = [
     'title', 'create_time', 'type', 'author', 'status', 'hot_comments', 'topping', 'draft'
@@ -68,9 +68,15 @@ function query(req, res) {
 }
 
 // 修改文章内容
-function update(req, res) {
+async function update(req, res) {
   const params = global.$overall.getReqParamsAll(req)
   if (!check(params, res) ) return
+  if (params.logoPath) {
+    const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
+      res.json(global.$resultFn.resultErr(e))
+    })
+    params.logo = u.url
+  }
   const arrs = [
     'title', 'author', 'label', 'content', 'contentdesc', 'type', 'draft', 'status', 'logo', 'hot_comments', 'topping', 'id'
   ]
@@ -83,8 +89,20 @@ function update(req, res) {
   })
 }
 
+// 查询文章详情
+function quertyDetail(req, res) {
+  db.queryArgs(sql.quertyDetail(), global.$overall.getArgs(req, 'id'), (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess(result))
+    }
+  })
+}
+
 module.exports = {
   add,
   query,
-  update
+  update,
+  quertyDetail
 }

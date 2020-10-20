@@ -16,5 +16,10 @@ global.$router.post('/update', function(req, res, next) {
   model.update(req, res, next)
 })
 
+// 查询文章详情
+global.$router.post('/detail', function(req, res, next) {
+  model.quertyDetail(req, res, next)
+})
+
 
 module.exports = global.$router

@@ -30,23 +30,6 @@ global.$router.post('/upload', function(req, res, next) {
         ...file,
         fName
       }))
-      for(let key in files) {
-        let file = files[key]
-        
-        
-        // 移入真实路径
-        // const uploadDir = path.join(__dirname, '../../images/real/' + fName) ;
-        // fs.rename(file.path, uploadDir, function(err) {
-        //   if (err) {
-        //       res.json(global.$resultFn.resultErr(err))
-        //       return
-        //       // res.end();
-        //   }
-        //   res.json(global.$resultFn.resultSuccess({fName: global.hostUrl + '/static/real/' + fName}))
-        //   return
-        // });
-      }
-      
     })
     return
 })
