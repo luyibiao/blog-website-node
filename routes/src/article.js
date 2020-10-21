@@ -21,5 +21,10 @@ global.$router.post('/detail', function(req, res, next) {
   model.quertyDetail(req, res, next)
 })
 
+// 删除文章
+global.$router.post('/delete', function(req, res, next) {
+  model.deleteDetail(req, res, next)
+})
+
 
 module.exports = global.$router

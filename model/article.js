@@ -32,7 +32,7 @@ async function add(req, res) {
     params.logo = u.url
   }
   const arrs = [
-    'title', 'author', 'label', 'content', 'contentdesc', 'type', 'draft', 'status', 'logo'
+    'title', 'author', 'label', 'content', 'contentdesc', 'type', 'status', 'logo'
   ]
   db.query(sql.add(params, ...arrs), (err, result) => {
     if (err) {
@@ -48,7 +48,7 @@ async function add(req, res) {
 async function query(req, res) {
   const pagesList = global.$overall.setPagination(req)
   const arrs = [
-    'title', 'create_time', 'type', 'author', 'status', 'hot_comments', 'topping', 'draft'
+    'title', 'create_time', 'type', 'author', 'status', 'hot_comments', 'topping'
   ]
   db.queryArgs(sql.query(req, arrs), pagesList, (err, result) => {
     if (err) {
@@ -71,6 +71,10 @@ async function query(req, res) {
 async function update(req, res) {
   const params = global.$overall.getReqParamsAll(req)
   if (!check(params, res) ) return
+  if (!params.id) {
+    res.json(global.$resultFn.resultErr('文章id为空'))
+    return
+  }
   if (params.logoPath) {
     const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
       res.json(global.$resultFn.resultErr(e))
@@ -78,7 +82,7 @@ async function update(req, res) {
     params.logo = u.url
   }
   const arrs = [
-    'title', 'author', 'label', 'content', 'contentdesc', 'type', 'draft', 'status', 'logo', 'hot_comments', 'topping', 'id'
+    'title', 'author', 'label', 'content', 'contentdesc', 'type', 'status', 'logo', 'hot_comments', 'topping', 'id'
   ]
   db.queryArgs(sql.update(params, ...arrs), [params.id], (err, result) => {
     if (err) {
@@ -100,9 +104,21 @@ function quertyDetail(req, res) {
   })
 }
 
+// 删除文章
+function deleteDetail(req, res) {
+  db.queryArgs(sql.deleteDetail(), global.$overall.getArgs(req, 'id'), (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess({}))
+    }
+  })
+}
+
 module.exports = {
   add,
   query,
   update,
-  quertyDetail
+  quertyDetail,
+  deleteDetail
 }

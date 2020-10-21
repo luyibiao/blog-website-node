@@ -75,6 +75,8 @@ const status = {
   online: 'LINE',
   // 下线状态
   Offline: 'OFFLINE',
+  // 草稿
+  DRAFT: 'DRAFT'
 }
 
 module.exports = {

@@ -52,6 +52,10 @@ const sql = {
   // 查询文章详情
   quertyDetail: function() {
     return `select * from article where id = ?` 
+  },
+  // 删除文章
+  deleteDetail: function() {
+    return `delete from article where id = ?`
   }
 }
 
