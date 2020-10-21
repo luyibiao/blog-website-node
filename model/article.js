@@ -1,5 +1,7 @@
+const { json } = require('express');
 var db = require('../config/index.js');
 const sql = require('../sql/article')
+const labSql = require('../sql/label')
 
 function check(params, res) {
   if (params.check) return true
@@ -21,6 +23,17 @@ function check(params, res) {
   }
   return true
 }
+
+// 增加标签使用次数 
+function addLabelNum(arr = []) {
+  arr.map(v => {
+    db.queryArgs(labSql.query, [v.id], (err, result) => {
+      const num = ++ result[0].use_num  
+      db.queryArgs(labSql.updateNum, [num, v.id], (e, r) => {})
+    })
+  })
+}
+
 // 增加文章
 async function add(req, res) {
   const params = global.$overall.getReqParamsAll(req)
@@ -38,6 +51,7 @@ async function add(req, res) {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
+      addLabelNum(JSON.parse(params.label || '[]'))
       res.json(global.$resultFn.resultSuccess({}))
     }
   })
@@ -88,6 +102,7 @@ async function update(req, res) {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
+      addLabelNum(JSON.parse(params.label || '[]'))
       res.json(global.$resultFn.resultSuccess({}))
     }
   })

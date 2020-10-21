@@ -57,7 +57,7 @@ function deleteLabel(req, res) {
 
 // 查询标签
 function queryLabel(req, res) {
-  const arrs = ['label']
+  const arrs = ['label', 'hot']
   const pagesList = global.$overall.setPagination(req)
   const pages = [
     // 普通参数
@@ -84,9 +84,23 @@ function queryLabel(req, res) {
   return
 }
 
+// 设置热门标签
+function updateHotLabel(req, res) {
+  // updateHot
+  const params = global.$overall.getReqParamsAll(req)
+  db.queryArgs(sql.updateHot, [params.hot, params.id], (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess({}))
+    }
+  })
+}
+
 module.exports = {
   addLabel,
   updateLabel,
   queryLabel,
-  deleteLabel
+  deleteLabel,
+  updateHotLabel
 }

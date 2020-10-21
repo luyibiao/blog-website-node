@@ -17,5 +17,10 @@ global.$router.post('/delete', function(req, res, next) {
   model.deleteLabel(req, res, next)
 })
 
+// 设置热门标签
+global.$router.post('/hot', function(req, res, next) {
+  model.updateHotLabel(req, res, next)
+})
+
 
 module.exports = global.$router
