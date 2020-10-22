@@ -1,5 +1,4 @@
-const { json } = require('express');
-var db = require('../config/index.js');
+const db = require('../config/index.js');
 const sql = require('../sql/article')
 const labSql = require('../sql/label')
 
