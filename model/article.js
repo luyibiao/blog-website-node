@@ -94,6 +94,9 @@ async function update(req, res) {
     })
     params.logo = u.url
   }
+  if (!params.logoPath && !params.logo) {
+    params.logo = ''
+  }
   const arrs = [
     'title', 'author', 'label', 'content', 'contentdesc', 'type', 'status', 'logo', 'hot_comments', 'topping', 'id'
   ]
