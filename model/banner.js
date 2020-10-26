@@ -23,7 +23,7 @@ async function addBanner(req, res, next) {
     params.imgUrl = u.url
   }
   const arr = [
-    'article_id', 'type', 'imgUrl', 'url'
+    'article_id', 'type', 'imgUrl', 'url', 'article_title'
   ]
   db.query(sql.add(params, arr), (err, result) => {
     if (err) {
@@ -32,8 +32,86 @@ async function addBanner(req, res, next) {
       res.json(global.$resultFn.resultSuccess({}))
     }
   })
+  return
+}
+
+// 查询轮播图
+function queryBanner(req, res, next) {
+  db.query(sql.query(), (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(e))
+    } else {
+      res.json(global.$resultFn.resultSuccess(result, false))
+    }
+  })
+  return
+}
+
+// 修改轮播图单个数据
+async function upadteBanner(req, res, next) {
+  const params = global.$overall.getReqParamsAll(req)
+  if (!params.logoPath && !params.imgUrl) {
+    res.json(global.$resultFn.resultErr('图片不能为空'))
+    return
+  }
+  if (params.type == 1 && !params.article_id) {
+    res.json(global.$resultFn.resultErr('跳转文章不能为空'))
+    return
+  }
+  if(params.type == 2 && !params.url) {
+    res.json(global.$resultFn.resultErr('外链不能为空'))
+    return
+  }
+  if (!params.id) {
+    res.json(global.$resultFn.resultErr('id不能为空'))
+    return
+  }
+  if (params.logoPath) {
+    const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
+      res.json(global.$resultFn.resultErr(e))
+    })
+    params.imgUrl = u.url
+  }
+  const arr = [
+    'article_id', 'type', 'imgUrl', 'url', 'article_title'
+  ]
+  db.queryArgs(sql.update(params, arr), [params.id], (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess({}))
+    }
+  })
+  return
+}
+
+// 查询单个详情
+function queryBannerDetail(req, res, next) {
+  db.queryArgs(sql.queryDetail(), global.$overall.getArgs(req, 'id'), (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess(result))
+    }
+  })
+  return
+}
+
+// 删除文章
+function deleteBanner(req, res, next) {
+  db.queryArgs(sql.delete(), global.$overall.getArgs(req, 'id'), (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess({}))
+    }
+  })
 }
 
 module.exports = {
-  addBanner
+  addBanner,
+  queryBanner,
+  upadteBanner,
+  queryBannerDetail,
+  deleteBanner
 }

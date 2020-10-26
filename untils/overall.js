@@ -104,7 +104,6 @@ function getPagination(pageIndex, pageSize, total) {
 
  // 移入真实路径
 function freameuUploadImg(paths, fName) {
-  
   return new Promise((resolve, reject) => {
     const uploadDir = path.join(__dirname, '../images/real/' + fName) ;
     fs.copyFile(paths, uploadDir, function(err) {
