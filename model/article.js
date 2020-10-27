@@ -1,6 +1,7 @@
 const db = require('../config/index.js');
 const sql = require('../sql/article')
 const labSql = require('../sql/label')
+const bannerSql = require('../sql/banner')
 
 function check(params, res) {
   if (params.check) return true
@@ -123,10 +124,13 @@ function quertyDetail(req, res) {
 
 // 删除文章
 function deleteDetail(req, res) {
-  db.queryArgs(sql.deleteDetail(), global.$overall.getArgs(req, 'id'), (err, result) => {
+  const ids = global.$overall.getArgs(req, 'id')
+  db.queryArgs(sql.deleteDetail(), ids, (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
+      // 将banner表中的关联文章数据也删掉
+      db.queryArgs(bannerSql.deleteArticle(), ids, function() {})
       res.json(global.$resultFn.resultSuccess({}))
     }
   })

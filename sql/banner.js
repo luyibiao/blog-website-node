@@ -11,7 +11,7 @@ function add(params, keys) {
 
 // 查询轮播图列表
 function query() {
-  let s = `select b.*, a.id as article_id, a.title, a.label from banner as b left join article as a on b.article_id = a.id and a.status = 'LINE'`
+  let s = `select b.*, a.id as article_id, a.title, a.label, a.status from banner as b left join article as a on b.article_id = a.id`
   return s
 }
 
@@ -40,6 +40,9 @@ const sql = {
   },
   delete: function() {
     return `delete from banner where id = ?`
+  },
+  deleteArticle: function() {
+    return `delete from banner where article_id = ?`
   }
 }
 
