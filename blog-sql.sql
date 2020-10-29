@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80016
 File Encoding         : 65001
 
-Date: 2020-10-27 18:20:23
+Date: 2020-10-29 18:35:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,8 @@ CREATE TABLE `article` (
   `hot_comments` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否为热评文章',
   `topping` tinyint(4) NOT NULL DEFAULT '0' COMMENT '置顶',
   `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'LINE' COMMENT '文章状态',
-  `type` int(5) NOT NULL DEFAULT '1' COMMENT '文章类型， 1.技术分享，2.心情随笔，3.书屋',
+  `type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '1' COMMENT '文章类型， SKILL.技术分享，ESSAY.心情随笔，STUDY.书屋',
+  `child_type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '文章二级栏目',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
@@ -41,10 +42,9 @@ CREATE TABLE `article` (
 -- ----------------------------
 -- Records of article
 -- ----------------------------
-INSERT INTO `article` VALUES ('3', '测试001', '九七', 'http://192.168.100.169:3000/static/real/a-test21602824029139.png', '[{\"id\":2,\"label\":\"技术\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 13:24:56\",\"update_time\":\"2020-10-14 13:24:56\"},{\"id\":1,\"label\":\"生活\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 11:40:59\",\"update_time\":\"2020-10-15 09:08:07\"}]', '这是测试001简介', '<p>结构化广发华福更好地发挥</p>', '0', '0', '1', '0', 'LINE', '1', '2020-10-16 13:09:22', '2020-10-19 10:44:32');
-INSERT INTO `article` VALUES ('4', '测试001', '九七', '', '[{\"id\":2,\"label\":\"技术\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 13:24:56\",\"update_time\":\"2020-10-14 13:24:56\"},{\"id\":1,\"label\":\"生活\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 11:40:59\",\"update_time\":\"2020-10-15 09:08:07\"}]', '这是文章简介', '<p>发生的官方梵蒂冈放到</p>', '0', '0', '1', '0', 'LINE', '1', '2020-10-16 13:10:04', '2020-10-27 17:52:40');
-INSERT INTO `article` VALUES ('5', '文章', '九', 'http://192.168.100.169:3000/static/real/ban11603076139423.png', '[]', '文章简介', '<p>发的广泛地</p>', '0', '0', '0', '1', 'LINE', '2', '2020-10-19 10:57:35', '2020-10-22 16:04:52');
-INSERT INTO `article` VALUES ('6', '测试02', '九七', '', '[]', '文章简介', '<p>1321</p>', '0', '0', '0', '1', 'LINE', '3', '2020-10-20 14:14:04', '2020-10-27 17:40:53');
+INSERT INTO `article` VALUES ('3', '测试001', '九七', 'http://192.168.100.169:3000/static/real/a-test21602824029139.png', '[{\"id\":2,\"label\":\"技术\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 13:24:56\",\"update_time\":\"2020-10-14 13:24:56\"},{\"id\":1,\"label\":\"生活\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 11:40:59\",\"update_time\":\"2020-10-15 09:08:07\"}]', '这是测试001简介', '<p>结构化广发华福更好地发挥</p>', '0', '0', '1', '0', 'LINE', 'SKILL', null, '2020-10-16 13:09:22', '2020-10-29 11:48:40');
+INSERT INTO `article` VALUES ('4', '测试001', '九七', '', '[{\"id\":2,\"label\":\"技术\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 13:24:56\",\"update_time\":\"2020-10-14 13:24:56\"},{\"id\":1,\"label\":\"生活\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 11:40:59\",\"update_time\":\"2020-10-15 09:08:07\"}]', '这是文章简介', '<p>发生的官方梵蒂冈放到</p>', '0', '0', '1', '0', 'LINE', 'SKILL', null, '2020-10-16 13:10:04', '2020-10-29 11:48:45');
+INSERT INTO `article` VALUES ('5', '文章', '九', 'http://192.168.100.169:3000/static/real/ban11603076139423.png', '[]', '文章简介', '<p>发的广泛地</p>', '0', '0', '0', '1', 'LINE', 'ESSAY', null, '2020-10-19 10:57:35', '2020-10-29 11:48:41');
 
 -- ----------------------------
 -- Table structure for articletype
@@ -52,19 +52,39 @@ INSERT INTO `article` VALUES ('6', '测试02', '九七', '', '[]', '文章简介
 DROP TABLE IF EXISTS `articletype`;
 CREATE TABLE `articletype` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` int(11) NOT NULL DEFAULT '1' COMMENT '类型码',
+  `code` varchar(11) NOT NULL DEFAULT '1' COMMENT '类型码',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文章类型名称',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of articletype
 -- ----------------------------
-INSERT INTO `articletype` VALUES ('1', '1', '技术分享', '2020-10-23 11:15:53', '2020-10-23 11:16:04');
-INSERT INTO `articletype` VALUES ('2', '2', '心情随笔', '2020-10-23 11:15:53', '2020-10-23 11:16:04');
-INSERT INTO `articletype` VALUES ('3', '3', '书屋', '2020-10-23 11:15:53', '2020-10-23 11:16:04');
+INSERT INTO `articletype` VALUES ('1', 'SKILL', '技术分享', '2020-10-23 11:15:53', '2020-10-29 11:45:49');
+INSERT INTO `articletype` VALUES ('2', 'ESSAY', '心情随笔', '2020-10-23 11:15:53', '2020-10-29 11:45:56');
+INSERT INTO `articletype` VALUES ('3', 'STUDY', '书屋', '2020-10-23 11:15:53', '2020-10-29 11:45:57');
+
+-- ----------------------------
+-- Table structure for articletype_item
+-- ----------------------------
+DROP TABLE IF EXISTS `articletype_item`;
+CREATE TABLE `articletype_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '栏目名称',
+  `articletype_id` varchar(255) NOT NULL COMMENT '一级栏目名称',
+  `articletype_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of articletype_item
+-- ----------------------------
+INSERT INTO `articletype_item` VALUES ('1', 'SKILL-AA', 'asf ', '1', 'SKILL', '2020-10-29 18:35:03', '2020-10-29 18:35:03');
 
 -- ----------------------------
 -- Table structure for banner
@@ -85,8 +105,6 @@ CREATE TABLE `banner` (
 -- ----------------------------
 -- Records of banner
 -- ----------------------------
-INSERT INTO `banner` VALUES ('4', '6', '测试02', '1', 'http://192.168.100.169:3000/static/real/a-test21603703492388.png', 'hasdfsa ', '2020-10-26 17:11:39', '2020-10-26 18:12:38');
-INSERT INTO `banner` VALUES ('5', '6', '测试02', '1', 'http://192.168.100.169:3000/static/real/a-test21603705726989.png', '', '2020-10-26 17:48:55', '2020-10-27 17:46:46');
 
 -- ----------------------------
 -- Table structure for label
@@ -115,7 +133,7 @@ INSERT INTO `label` VALUES ('7', '6', '0', '0', '2020-10-19 10:46:56', '2020-10-
 INSERT INTO `label` VALUES ('8', '8', '0', '0', '2020-10-19 10:46:59', '2020-10-19 10:46:59');
 INSERT INTO `label` VALUES ('9', '90', '0', '1', '2020-10-19 10:47:02', '2020-10-23 10:28:15');
 INSERT INTO `label` VALUES ('10', '687', '0', '0', '2020-10-19 10:47:04', '2020-10-21 19:08:36');
-INSERT INTO `label` VALUES ('11', '678', '0', '0', '2020-10-19 10:47:07', '2020-10-21 19:15:22');
+INSERT INTO `label` VALUES ('11', '678', '0', '0', '2020-10-19 10:47:07', '2020-10-29 11:33:35');
 
 -- ----------------------------
 -- Table structure for mine

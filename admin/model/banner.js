@@ -1,5 +1,5 @@
-const db = require('../config/index.js');
-const sql = require('../sql/banner')
+
+const { banner: sql } = global.$sql('banner')
 
 // 增加轮播图
 async function addBanner(req, res, next) {
@@ -25,7 +25,7 @@ async function addBanner(req, res, next) {
   const arr = [
     'article_id', 'type', 'imgUrl', 'url', 'article_title'
   ]
-  db.query(sql.add(params, arr), (err, result) => {
+  global.$db.query(sql.add(params, arr), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(e))
     } else {
@@ -37,7 +37,7 @@ async function addBanner(req, res, next) {
 
 // 查询轮播图
 function queryBanner(req, res, next) {
-  db.query(sql.query(), (err, result) => {
+  global.$db.query(sql.query(), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(e))
     } else {
@@ -76,7 +76,7 @@ async function upadteBanner(req, res, next) {
   const arr = [
     'article_id', 'type', 'imgUrl', 'url', 'article_title'
   ]
-  db.queryArgs(sql.update(params, arr), [params.id], (err, result) => {
+  global.$db.queryArgs(sql.update(params, arr), [params.id], (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -88,7 +88,7 @@ async function upadteBanner(req, res, next) {
 
 // 查询单个详情
 function queryBannerDetail(req, res, next) {
-  db.queryArgs(sql.queryDetail(), global.$overall.getArgs(req, 'id'), (err, result) => {
+  global.$db.queryArgs(sql.queryDetail(), global.$overall.getArgs(req, 'id'), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -100,7 +100,7 @@ function queryBannerDetail(req, res, next) {
 
 // 删除文章
 function deleteBanner(req, res, next) {
-  db.queryArgs(sql.delete(), global.$overall.getArgs(req, 'id'), (err, result) => {
+  global.$db.queryArgs(sql.delete(), global.$overall.getArgs(req, 'id'), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {

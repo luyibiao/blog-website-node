@@ -64,9 +64,9 @@ const results = {
 
 // 文章类型
 const ARTICLE_TYPE = {
-  SKILL: 1, // 技术
-  ESSAY: 2, // 随笔
-  STUDY: 3, // 书屋
+  SKILL: 'SKILL', // 技术
+  ESSAY: 'ESSAY', // 随笔
+  STUDY: 'STUDY', // 书屋
 }
 
 // 文章状态

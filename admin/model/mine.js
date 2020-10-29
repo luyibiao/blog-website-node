@@ -1,5 +1,5 @@
-const db = require('../config/index.js');
-const sql = require('../sql/mine');
+
+const { mine: sql } = global.$sql('mine')
 
 // 增加个人说明
 async function addMine(req, res) {
@@ -21,7 +21,7 @@ async function addMine(req, res) {
   const arr = [
     'description', 'profile', 'content', 'avatar'
   ]
-  db.query(sql.add(params, arr), (err, result) => {
+  global.$db.query(sql.add(params, arr), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -33,7 +33,7 @@ async function addMine(req, res) {
 
 // 查询关于我
 function queryMine(req, res) {
-  db.query(sql.query, (err, result) => {
+  global.$db.query(sql.query, (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -66,7 +66,7 @@ async function updateMine(req, res) {
   const arr = [
     'description', 'profile', 'content', 'avatar'
   ]
-  db.queryArgs(sql.update(params, arr), [params.id], (err, result) => {
+  global.$db.queryArgs(sql.update(params, arr), [params.id], (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {

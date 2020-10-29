@@ -1,7 +1,5 @@
-const db = require('../config/index.js');
-const sql = require('../sql/article')
-const labSql = require('../sql/label')
-const bannerSql = require('../sql/banner')
+
+const {article: sql, label: labSql, banner: bannerSql } = global.$sql('article', 'label', 'banner')
 
 function check(params, res) {
   if (params.check) return true
@@ -27,9 +25,9 @@ function check(params, res) {
 // 增加标签使用次数 
 function addLabelNum(arr = []) {
   arr.map(v => {
-    db.queryArgs(labSql.query, [v.id], (err, result) => {
+    global.$db.queryArgs(labSql.query, [v.id], (err, result) => {
       const num = ++ result[0].use_num  
-      db.queryArgs(labSql.updateNum, [num, v.id], (e, r) => {})
+      global.$db.queryArgs(labSql.updateNum, [num, v.id], (e, r) => {})
     })
   })
 }
@@ -47,7 +45,7 @@ async function add(req, res) {
   const arrs = [
     'title', 'author', 'label', 'content', 'contentdesc', 'type', 'status', 'logo'
   ]
-  db.query(sql.add(params, ...arrs), (err, result) => {
+  global.$db.query(sql.add(params, ...arrs), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -64,7 +62,7 @@ async function query(req, res) {
   const arrs = [
     'title', 'create_time', 'type', 'author', 'status', 'hot_comments', 'topping'
   ]
-  db.queryArgs(sql.query(req, arrs), pagesList, (err, result) => {
+  global.$db.queryArgs(sql.query(req, arrs), pagesList, (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -101,7 +99,7 @@ async function update(req, res) {
   const arrs = [
     'title', 'author', 'label', 'content', 'contentdesc', 'type', 'status', 'logo', 'hot_comments', 'topping', 'id'
   ]
-  db.queryArgs(sql.update(params, ...arrs), [params.id], (err, result) => {
+  global.$db.queryArgs(sql.update(params, ...arrs), [params.id], (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -113,7 +111,7 @@ async function update(req, res) {
 
 // 查询文章详情
 function quertyDetail(req, res) {
-  db.queryArgs(sql.quertyDetail(), global.$overall.getArgs(req, 'id'), (err, result) => {
+  global.$db.queryArgs(sql.quertyDetail(), global.$overall.getArgs(req, 'id'), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -125,12 +123,12 @@ function quertyDetail(req, res) {
 // 删除文章
 function deleteDetail(req, res) {
   const ids = global.$overall.getArgs(req, 'id')
-  db.queryArgs(sql.deleteDetail(), ids, (err, result) => {
+  global.$db.queryArgs(sql.deleteDetail(), ids, (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
       // 将banner表中的关联文章数据也删掉
-      db.queryArgs(bannerSql.deleteArticle(), ids, function() {})
+      global.$db.queryArgs(bannerSql.deleteArticle(), ids, function() {})
       res.json(global.$resultFn.resultSuccess({}))
     }
   })

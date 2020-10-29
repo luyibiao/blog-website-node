@@ -1,11 +1,10 @@
-var userSql = require('../sql/user.js');
-var db = require('../config/index.js');
-var token = require('../token/token')
+const { user: userSql } = global.$sql('user')
+const token = require('../token/token')
 
 function getUser(req, res) {
-  db.queryArgs(userSql.loginSql, global.$overall.getArgs(req, 'account', 'password'), function(err, result) {
+  global.$db.queryArgs(userSql.loginSql, global.$overall.getArgs(req, 'account', 'password'), function(err, result) {
     if (err) {
-      global.$resultFn.resultErr(err)
+      res.json(global.$resultFn.resultErr(err))
     } else {
       let r = global.$resultFn.resultSuccess(result)
       if (!r.data.id) {

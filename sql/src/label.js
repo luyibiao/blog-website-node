@@ -4,7 +4,6 @@ const sql = {
   queryAll: function(key, req) {
     const s1 = `select * from label ` + global.$overall.relyOn(key, req) + ' ORDER BY create_time desc limit ?, ?'
     const s2 = `;select count(*) from label ` + global.$overall.relyOn(key, req)
-    console.log(s2)
     return s1 + s2 
   },
   query: 'select use_num from label where id = ?',

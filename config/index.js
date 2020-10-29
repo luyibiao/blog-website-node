@@ -2,15 +2,6 @@ var mysql = require('mysql')
 var dbConfig = require('./db_config')
 const pool = mysql.createPool(dbConfig)
 
-
-// function responseDoReturn(err, res, c) {
-//   if (err) {
-//     return codes.error(err, c)
-//   } else {
-//     return codes.success(res)
-//   }
-// }
-
 // 封装query之sql带不占位符func
 function query(sql, callback) {
   pool.getConnection(function(err, connection) {

@@ -1,5 +1,5 @@
-var db = require('../config/index.js');
-const sql = require('../sql/label')
+
+const { label: sql } = global.$sql('label')
 
 // 增加标签
 function addLabel(req, res) {
@@ -8,7 +8,7 @@ function addLabel(req, res) {
     res.json(global.$resultFn.resultErr('标签名称不能为空'))
     return
   }
-  db.queryArgs(sql.addLabelSql, global.$overall.getArgs(req, 'label'), (err, result) => {
+  global.$db.queryArgs(sql.addLabelSql, global.$overall.getArgs(req, 'label'), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -29,7 +29,7 @@ function updateLabel(req, res) {
     res.json(global.$resultFn.resultErr('标签名称不能为空'))
     return
   }
-  db.queryArgs(sql.update, global.$overall.getArgs(req, 'label', 'id'), (err, result) => {
+  global.$db.queryArgs(sql.update, global.$overall.getArgs(req, 'label', 'id'), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -45,7 +45,7 @@ function deleteLabel(req, res) {
     res.json(global.$resultFn.resultErr('id为空'))
     return
   }
-  db.queryArgs(sql.delete, global.$overall.getArgs(req, 'id'), (err, result) => {
+  global.$db.queryArgs(sql.delete, global.$overall.getArgs(req, 'id'), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -67,7 +67,7 @@ function queryLabel(req, res) {
     // 普通参数
     // ...global.$overall.getArgs(req, ...arrs).filter(v => v),
   ]
-  db.queryArgs(sql.queryAll(arrs, req), pages, (err, result) => {
+  global.$db.queryArgs(sql.queryAll(arrs, req), pages, (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -88,7 +88,7 @@ function queryLabel(req, res) {
 function updateHotLabel(req, res) {
   // updateHot
   const params = global.$overall.getReqParamsAll(req)
-  db.queryArgs(sql.updateHot, [params.hot, params.id], (err, result) => {
+  global.$db.queryArgs(sql.updateHot, [params.hot, params.id], (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
