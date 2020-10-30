@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80016
 File Encoding         : 65001
 
-Date: 2020-10-30 14:40:40
+Date: 2020-10-30 18:02:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,7 +37,7 @@ CREATE TABLE `article` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of article
@@ -79,11 +79,13 @@ CREATE TABLE `articletype_item` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of articletype_item
 -- ----------------------------
+INSERT INTO `articletype_item` VALUES ('12', 'SKILL-SK', '技术', '1', 'SKILL', '2020-10-30 15:01:51', '2020-10-30 15:01:51');
+INSERT INTO `articletype_item` VALUES ('13', 'ESSAY-WS', '心情', '2', 'ESSAY', '2020-10-30 15:05:29', '2020-10-30 15:05:29');
 
 -- ----------------------------
 -- Table structure for banner
@@ -122,7 +124,7 @@ CREATE TABLE `label` (
 -- ----------------------------
 -- Records of label
 -- ----------------------------
-INSERT INTO `label` VALUES ('1', '生活', '0', '0', '2020-10-14 11:40:59', '2020-10-15 09:08:07');
+INSERT INTO `label` VALUES ('1', '生活', '1', '0', '2020-10-14 11:40:59', '2020-10-30 15:07:42');
 INSERT INTO `label` VALUES ('2', '技术', '2', '0', '2020-10-14 13:24:56', '2020-10-23 10:39:14');
 INSERT INTO `label` VALUES ('3', '1', '0', '0', '2020-10-19 10:46:47', '2020-10-19 10:46:47');
 INSERT INTO `label` VALUES ('4', '2', '2', '0', '2020-10-19 10:46:49', '2020-10-23 10:39:14');
@@ -130,9 +132,8 @@ INSERT INTO `label` VALUES ('5', '4', '2', '0', '2020-10-19 10:46:51', '2020-10-
 INSERT INTO `label` VALUES ('6', '5', '0', '0', '2020-10-19 10:46:53', '2020-10-19 10:46:53');
 INSERT INTO `label` VALUES ('7', '6', '0', '0', '2020-10-19 10:46:56', '2020-10-19 10:46:56');
 INSERT INTO `label` VALUES ('8', '8', '0', '0', '2020-10-19 10:46:59', '2020-10-19 10:46:59');
-INSERT INTO `label` VALUES ('9', '90', '0', '1', '2020-10-19 10:47:02', '2020-10-23 10:28:15');
-INSERT INTO `label` VALUES ('10', '687', '0', '0', '2020-10-19 10:47:04', '2020-10-21 19:08:36');
-INSERT INTO `label` VALUES ('11', '678', '0', '0', '2020-10-19 10:47:07', '2020-10-29 11:33:35');
+INSERT INTO `label` VALUES ('9', '90', '0', '0', '2020-10-19 10:47:02', '2020-10-30 17:17:25');
+INSERT INTO `label` VALUES ('11', '6781', '0', '0', '2020-10-19 10:47:07', '2020-10-30 17:21:07');
 
 -- ----------------------------
 -- Table structure for mine

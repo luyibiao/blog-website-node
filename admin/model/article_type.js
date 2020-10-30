@@ -167,6 +167,18 @@ async function updateSecondsArticle(req, res) {
   }
 }
 
+// 根据一级栏目code查询二级栏目
+function queryTypeOrSecondsType(req, res) {
+  global.$db.queryArgs(sql.queryTypeOrSecondsType, global.$overall.getArgs(req, 'articletype_code') , (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+      return
+    }
+    res.json(global.$resultFn.resultSuccess(result, false))
+  })
+  return 
+}
+
 module.exports = {
   queryArticleType,
   addArticleType,
@@ -175,5 +187,6 @@ module.exports = {
   addSecondsArticleType,
   deleteSecondsArticle,
   querySecondsArticleType,
-  updateSecondsArticle
+  updateSecondsArticle,
+  queryTypeOrSecondsType
 }

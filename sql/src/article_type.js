@@ -74,7 +74,9 @@ a.articletype_id = pa.id
     return updateArticleType(params, keys, 'articletype_item')
   },
   // 查询一级栏目下某二级栏目下是否被注册过
-  querySecondsExit: 'SELECT * from articletype_item as a where a.articletype_id = ? and (a.code = ? or a.name = ?)'
+  querySecondsExit: 'SELECT * from articletype_item as a where a.articletype_id = ? and (a.code = ? or a.name = ?)',
+  // 根据一级栏目查询二级栏目
+  queryTypeOrSecondsType: 'select * from articletype_item as a where a.articletype_code = ?'
 }
 
 module.exports = sql

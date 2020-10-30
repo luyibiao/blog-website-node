@@ -43,7 +43,7 @@ async function add(req, res) {
     params.logo = u.url
   }
   const arrs = [
-    'title', 'author', 'label', 'content', 'contentdesc', 'type', 'status', 'logo'
+    'title', 'author', 'label', 'content', 'contentdesc', 'type', 'child_type', 'status', 'logo'
   ]
   global.$db.query(sql.add(params, ...arrs), (err, result) => {
     if (err) {
@@ -60,7 +60,7 @@ async function add(req, res) {
 async function query(req, res) {
   const pagesList = global.$overall.setPagination(req)
   const arrs = [
-    'title', 'create_time', 'type', 'author', 'status', 'hot_comments', 'topping'
+    'title', 'create_time', 'type', 'author', 'status', 'child_type', 'hot_comments', 'topping'
   ]
   global.$db.queryArgs(sql.query(req, arrs), pagesList, (err, result) => {
     if (err) {
@@ -97,7 +97,7 @@ async function update(req, res) {
     params.logo = ''
   }
   const arrs = [
-    'title', 'author', 'label', 'content', 'contentdesc', 'type', 'status', 'logo', 'hot_comments', 'topping', 'id'
+    'title', 'author', 'label', 'content', 'contentdesc', 'type', 'child_type', 'status', 'logo', 'hot_comments', 'topping', 'id'
   ]
   global.$db.queryArgs(sql.update(params, ...arrs), [params.id], (err, result) => {
     if (err) {

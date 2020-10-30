@@ -40,6 +40,11 @@ global.$router.post('/updateSecondsArticle', function(req, res, next) {
   model.updateSecondsArticle(req, res, next)
 })
 
+// 根据一级栏目查询二级栏目
+global.$router.post('/queryTypeOrSecondsType', function(req, res, next) {
+  model.queryTypeOrSecondsType(req, res, next)
+})
+
 // 转发网易云热评歌曲api 
 // global.$router.post('/queryWYYmusic', function(req, res, next ) {
 //   const request = require('request');
