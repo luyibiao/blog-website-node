@@ -16,9 +16,28 @@ global.$router.post('/deleteArticleType', function(req, res, next) {
   model.deleteArticleType(req, res, next)
 })
 
+// 修改一级栏目
+global.$router.post('/updateArticleType', function(req, res, next) {
+  model.updateArticleType(req, res, next)
+})
+
 // 增加二级栏目
 global.$router.post('/addSecondsArticleType', function(req, res, next) {
   model.addSecondsArticleType(req, res, next)
+})
+
+// 删除二级栏目
+global.$router.post('/deleteSecondsArticle', function(req, res, next) {
+  model.deleteSecondsArticle(req, res, next)
+})
+
+// 查询二级栏目
+global.$router.post('/querySecondsArticleType', function(req, res, next) {
+  model.querySecondsArticleType(req, res, next)
+})
+// 修改二级栏目
+global.$router.post('/updateSecondsArticle', function(req, res, next) {
+  model.updateSecondsArticle(req, res, next)
 })
 
 // 转发网易云热评歌曲api 

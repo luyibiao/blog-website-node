@@ -8,8 +8,17 @@ function addSecondsSQL(params, keys) {
   return s
 }
 
+function updateArticleType(params, keys, str = 'articletype') {
+  let s = `update ${str} set `
+  keys.filter(v => (params[v] !== undefined && params[v] !== null)).map((v, index) => {
+    s += `${index === 0 ? '' : ','}${v} = ${mysql.escape(params[v])}`
+  })
+  s += ` where id = ?`
+  return s
+}
+
 const sql = {
-  // 查询栏目
+  // 查询一级栏目
   queryArticleType: `SELECT
   a.*,
   (
@@ -21,22 +30,51 @@ const sql = {
     article.type = a. CODE
   ) 'article_total'
  FROM
-  articletype a
- GROUP BY
-  a. CODE,a.id,a.name,a.create_time,a.update_time`,
-  // 增加栏目
+  articletype a`,
+  // 增加一级栏目
   addArticleType: 'insert into articletype set name = ?, code = ?',
   //  查询是否已存在栏目
   quertExitArticle: 'select * from articletype where name = ? or code = ?',
   // 删除一级栏目
   deleteArticleType: 'delete from articletype where id = ?',
+  // 修改一级栏目内容
+  updateArticleType: function(params, keys) {
+    return updateArticleType(params, keys)
+  },
 
   // 查询二级栏目总数
-  // querySecondsArticleType: ''
+  querySecondsArticleType: `SELECT
+  a.*,
+	pa.name as articletype_name,
+  (
+   SELECT
+    count(1)
+   FROM
+    article
+   WHERE
+    article.child_type = a.CODE
+  ) 'article_total'
+FROM
+  articletype_item a 
+left JOIN
+  articletype as pa
+ON
+a.articletype_id = pa.id
+`,
   // 增加二级栏目
   addSecondsArticleType: function(params, keys) {
     return addSecondsSQL(params, keys)
-  }
+  },
+  // 删除二级栏目
+  deleteSecondsArticle: function() {
+     return `delete from articletype_item where id = ? or articletype_id = ?`
+  },
+  // 修改二级栏目
+  updateSecondsArticle: function(params, keys) {
+    return updateArticleType(params, keys, 'articletype_item')
+  },
+  // 查询一级栏目下某二级栏目下是否被注册过
+  querySecondsExit: 'SELECT * from articletype_item as a where a.articletype_id = ? and (a.code = ? or a.name = ?)'
 }
 
 module.exports = sql

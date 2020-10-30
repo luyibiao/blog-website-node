@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80016
 File Encoding         : 65001
 
-Date: 2020-10-29 18:35:40
+Date: 2020-10-30 14:40:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,7 +42,7 @@ CREATE TABLE `article` (
 -- ----------------------------
 -- Records of article
 -- ----------------------------
-INSERT INTO `article` VALUES ('3', '测试001', '九七', 'http://192.168.100.169:3000/static/real/a-test21602824029139.png', '[{\"id\":2,\"label\":\"技术\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 13:24:56\",\"update_time\":\"2020-10-14 13:24:56\"},{\"id\":1,\"label\":\"生活\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 11:40:59\",\"update_time\":\"2020-10-15 09:08:07\"}]', '这是测试001简介', '<p>结构化广发华福更好地发挥</p>', '0', '0', '1', '0', 'LINE', 'SKILL', null, '2020-10-16 13:09:22', '2020-10-29 11:48:40');
+INSERT INTO `article` VALUES ('3', '测试001', '九七', 'http://192.168.100.169:3000/static/real/a-test21602824029139.png', '[{\"id\":2,\"label\":\"技术\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 13:24:56\",\"update_time\":\"2020-10-14 13:24:56\"},{\"id\":1,\"label\":\"生活\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 11:40:59\",\"update_time\":\"2020-10-15 09:08:07\"}]', '这是测试001简介', '<p>结构化广发华福更好地发挥</p>', '0', '0', '1', '0', 'LINE', 'SKILL', '', '2020-10-16 13:09:22', '2020-10-30 10:58:08');
 INSERT INTO `article` VALUES ('4', '测试001', '九七', '', '[{\"id\":2,\"label\":\"技术\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 13:24:56\",\"update_time\":\"2020-10-14 13:24:56\"},{\"id\":1,\"label\":\"生活\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 11:40:59\",\"update_time\":\"2020-10-15 09:08:07\"}]', '这是文章简介', '<p>发生的官方梵蒂冈放到</p>', '0', '0', '1', '0', 'LINE', 'SKILL', null, '2020-10-16 13:10:04', '2020-10-29 11:48:45');
 INSERT INTO `article` VALUES ('5', '文章', '九', 'http://192.168.100.169:3000/static/real/ban11603076139423.png', '[]', '文章简介', '<p>发的广泛地</p>', '0', '0', '0', '1', 'LINE', 'ESSAY', null, '2020-10-19 10:57:35', '2020-10-29 11:48:41');
 
@@ -57,14 +57,14 @@ CREATE TABLE `articletype` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of articletype
 -- ----------------------------
 INSERT INTO `articletype` VALUES ('1', 'SKILL', '技术分享', '2020-10-23 11:15:53', '2020-10-29 11:45:49');
 INSERT INTO `articletype` VALUES ('2', 'ESSAY', '心情随笔', '2020-10-23 11:15:53', '2020-10-29 11:45:56');
-INSERT INTO `articletype` VALUES ('3', 'STUDY', '书屋', '2020-10-23 11:15:53', '2020-10-29 11:45:57');
+INSERT INTO `articletype` VALUES ('11', 'STUDY', '书屋', '2020-10-30 10:45:20', '2020-10-30 10:45:20');
 
 -- ----------------------------
 -- Table structure for articletype_item
@@ -79,12 +79,11 @@ CREATE TABLE `articletype_item` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of articletype_item
 -- ----------------------------
-INSERT INTO `articletype_item` VALUES ('1', 'SKILL-AA', 'asf ', '1', 'SKILL', '2020-10-29 18:35:03', '2020-10-29 18:35:03');
 
 -- ----------------------------
 -- Table structure for banner
