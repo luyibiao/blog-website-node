@@ -45,8 +45,6 @@ function deleteLabel(req, res) {
     res.json(global.$resultFn.resultErr('id为空'))
     return
   }
-  console.log(45454545)
-  console.log(global.$overall.getArgs(req, 'id'))
   global.$db.queryArgs(sql.delete, global.$overall.getArgs(req, 'id'), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))

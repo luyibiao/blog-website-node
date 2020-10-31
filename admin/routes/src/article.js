@@ -1,5 +1,5 @@
 
-let model = require('../../model/article.js');
+const model = require('../../model/article.js');
 
 // 增加文章
 global.$router.post('/add', function(req, res, next) {

@@ -11,7 +11,7 @@ function add(params, keys) {
 
 // 查询轮播图列表
 function query() {
-  let s = `select b.*, a.id as article_id, a.title, a.label, a.status from banner as b left join article as a on b.article_id = a.id`
+  let s = `select b.*, a.id as article_id, a.title as article_title, a.label, a.status from banner as b left join article as a on b.article_id = a.id`
   return s
 }
 
@@ -33,7 +33,7 @@ const sql = {
     return query(params)
   },
   queryDetail: function() {
-    return `select * from banner where id = ?`
+    return `select b.*, a.title as article_title from banner as b left join article as a on b.id = ? and b.article_id = a.id`
   },
   update: function(params, keys) {
     return update(params, keys)

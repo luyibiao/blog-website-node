@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : blog
-Source Server Version : 80016
-Source Host           : 127.0.0.1:3306
+Source Server Version : 80011
+Source Host           : localhost:3306
 Source Database       : blog-sql
 
 Target Server Type    : MYSQL
-Target Server Version : 80016
+Target Server Version : 80011
 File Encoding         : 65001
 
-Date: 2020-10-30 18:02:48
+Date: 2020-10-31 15:19:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -44,7 +44,7 @@ CREATE TABLE `article` (
 -- ----------------------------
 INSERT INTO `article` VALUES ('3', '测试001', '九七', 'http://192.168.100.169:3000/static/real/a-test21602824029139.png', '[{\"id\":2,\"label\":\"技术\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 13:24:56\",\"update_time\":\"2020-10-14 13:24:56\"},{\"id\":1,\"label\":\"生活\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 11:40:59\",\"update_time\":\"2020-10-15 09:08:07\"}]', '这是测试001简介', '<p>结构化广发华福更好地发挥</p>', '0', '0', '1', '0', 'LINE', 'SKILL', '', '2020-10-16 13:09:22', '2020-10-30 10:58:08');
 INSERT INTO `article` VALUES ('4', '测试001', '九七', '', '[{\"id\":2,\"label\":\"技术\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 13:24:56\",\"update_time\":\"2020-10-14 13:24:56\"},{\"id\":1,\"label\":\"生活\",\"use_num\":0,\"hot\":0,\"create_time\":\"2020-10-14 11:40:59\",\"update_time\":\"2020-10-15 09:08:07\"}]', '这是文章简介', '<p>发生的官方梵蒂冈放到</p>', '0', '0', '1', '0', 'LINE', 'SKILL', null, '2020-10-16 13:10:04', '2020-10-29 11:48:45');
-INSERT INTO `article` VALUES ('5', '文章', '九', 'http://192.168.100.169:3000/static/real/ban11603076139423.png', '[]', '文章简介', '<p>发的广泛地</p>', '0', '0', '0', '1', 'LINE', 'ESSAY', null, '2020-10-19 10:57:35', '2020-10-29 11:48:41');
+INSERT INTO `article` VALUES ('5', '运动也使人进步', '九', 'http://192.168.100.169:3000/static/real/ban11603076139423.png', '[]', '文章简介', '<p>发的广泛地</p>', '0', '0', '0', '1', 'LINE', 'ESSAY', '', '2020-10-19 10:57:35', '2020-10-31 11:11:48');
 
 -- ----------------------------
 -- Table structure for articletype
@@ -94,18 +94,18 @@ DROP TABLE IF EXISTS `banner`;
 CREATE TABLE `banner` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `article_id` varchar(11) DEFAULT NULL COMMENT '文章id',
-  `article_title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `type` int(11) DEFAULT '1' COMMENT '轮播类型，1.跳转文章， 2.外链跳转',
   `imgUrl` varchar(255) NOT NULL COMMENT '轮播图片',
   `url` varchar(255) DEFAULT NULL COMMENT '图片链接',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of banner
 -- ----------------------------
+INSERT INTO `banner` VALUES ('7', '4', '1', 'http://192.168.10.105:3000/static/real/tirza-van-dijk1604113681173.jpg', '', '2020-10-31 10:46:35', '2020-10-31 13:06:36');
 
 -- ----------------------------
 -- Table structure for label

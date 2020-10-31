@@ -47,6 +47,10 @@ app.all('*', function(req, res, next) {
 const adminRoutes = require('./admin')
 adminRoutes.init(app)
 
+// 加载blog的动态路由
+const blogRoutes = require('./blog')
+blogRoutes.init(app)
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

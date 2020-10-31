@@ -23,7 +23,7 @@ async function addBanner(req, res, next) {
     params.imgUrl = u.url
   }
   const arr = [
-    'article_id', 'type', 'imgUrl', 'url', 'article_title'
+    'article_id', 'type', 'imgUrl', 'url'
   ]
   global.$db.query(sql.add(params, arr), (err, result) => {
     if (err) {
@@ -74,7 +74,7 @@ async function upadteBanner(req, res, next) {
     params.imgUrl = u.url
   }
   const arr = [
-    'article_id', 'type', 'imgUrl', 'url', 'article_title'
+    'article_id', 'type', 'imgUrl', 'url'
   ]
   global.$db.queryArgs(sql.update(params, arr), [params.id], (err, result) => {
     if (err) {
@@ -98,7 +98,7 @@ function queryBannerDetail(req, res, next) {
   return
 }
 
-// 删除文章
+// 删除轮播
 function deleteBanner(req, res, next) {
   global.$db.queryArgs(sql.delete(), global.$overall.getArgs(req, 'id'), (err, result) => {
     if (err) {
