@@ -107,6 +107,7 @@ async function update(req, res) {
       res.json(global.$resultFn.resultSuccess({}))
     }
   })
+  return
 }
 
 // 查询文章详情
@@ -118,6 +119,7 @@ function quertyDetail(req, res) {
       res.json(global.$resultFn.resultSuccess(result))
     }
   })
+  return
 }
 
 // 删除文章
@@ -132,6 +134,7 @@ function deleteDetail(req, res) {
       res.json(global.$resultFn.resultSuccess({}))
     }
   })
+  return
 }
 
 module.exports = {
