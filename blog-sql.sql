@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : blog
-Source Server Version : 80011
-Source Host           : localhost:3306
+Source Server Version : 80016
+Source Host           : 127.0.0.1:3306
 Source Database       : blog-sql
 
 Target Server Type    : MYSQL
-Target Server Version : 80011
+Target Server Version : 80016
 File Encoding         : 65001
 
-Date: 2020-10-31 15:19:22
+Date: 2020-11-06 18:12:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -100,12 +100,28 @@ CREATE TABLE `banner` (
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of banner
 -- ----------------------------
-INSERT INTO `banner` VALUES ('7', '4', '1', 'http://192.168.10.105:3000/static/real/tirza-van-dijk1604113681173.jpg', '', '2020-10-31 10:46:35', '2020-10-31 13:06:36');
+INSERT INTO `banner` VALUES ('8', '5', '1', 'http://192.168.100.169:3000/static/real/a-test21604280859633.png', '', '2020-11-02 09:34:41', '2020-11-02 09:34:41');
+INSERT INTO `banner` VALUES ('9', '4', '1', 'http://192.168.100.169:3000/static/real/recommend1604289462275.jpg', '', '2020-11-02 11:57:46', '2020-11-02 11:57:46');
+
+-- ----------------------------
+-- Table structure for bloguser
+-- ----------------------------
+DROP TABLE IF EXISTS `bloguser`;
+CREATE TABLE `bloguser` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userName` varchar(255) NOT NULL DEFAULT '' COMMENT '用户名',
+  `userEmail` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bloguser
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for label
