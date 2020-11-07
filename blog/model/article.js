@@ -1,21 +1,7 @@
 const {article, label: labSql, banner: bannerSql } = global.$sql('article', 'label', 'banner')
-const sendEmail = require('../../untils/email')
 
 // 拿文章列表
 function getArticleList(req, res) {
-  // 创建一个邮件对象
-  var mail = { 
-    // 主题
-    subject: '你好',
-    // 收件人
-    // to: 'zhang.zheng@hb-cloud.cn',
-    to: '1739717921@qq.com',
-    text: '第一篇九七个人博客推送'
-    
-    // 邮件内容，HTML格式
-    // text: '点击激活：xxx' //可以是链接，也可以是验证码
-  };
-
   const pagesList = global.$overall.setPagination(req)
   const arrs = [
     'title', 'create_time', 'type', 'author', 'status', 'child_type', 'hot_comments', 'topping'

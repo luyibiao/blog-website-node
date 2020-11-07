@@ -19,11 +19,12 @@ const config = {
 const transporter = nodemailer.createTransport(config);
 
 // 发送邮件
-function send(mail){
+function send(mail, to){
   if (!mail || typeof mail !== 'object') return 
   mail = {
      // 发件人
     from: '九七个人博客<1739717921@qq.com>',
+    to,
     ...mail
   }
   transporter.sendMail(mail, function(error, info){

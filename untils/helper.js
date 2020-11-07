@@ -2,7 +2,11 @@
 // 格式化时间
 // @param validDate 任何可以new Date()的有效日期
 // @param fmt 形如 "yyyy-MM-dd hh:mm:ss", "MM月-dd日" 等字符串
-const formatDatetime = function(validDate, fmt) {
+
+const randomIntArrayInRange = (min, max, length = 1) => 
+            Array.from({ length }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+
+exports.formatDatetime = function(validDate, fmt) {
   if (typeof validDate === 'string'){
       validDate = validDate.replace('T',' ').replace(/-/g,'\/');
   } else if (!validDate){
@@ -25,6 +29,6 @@ const formatDatetime = function(validDate, fmt) {
   return fmt;
 }
 
-module.exports = {
-  formatDatetime
-}
+// 生成六位数验证码
+
+exports.createCode = _ => parseInt(randomIntArrayInRange(0, 9, 6).join(''))

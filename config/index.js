@@ -20,17 +20,21 @@ function query(sql, callback) {
 
 // 封装query之sql带占位符
 function queryArgs(sql, args, callback) {
-  pool.getConnection(function(err, connection) {
-    if (err) {
-      // callback(responseDoReturn(err,null))
-      callback(err)
-    } else {
-      connection.query(sql, args,function (err, rows) {
-        connection.release();
-        callback(err, rows)
-        // callback(responseDoReturn(err,rows));  
-      });
-    }
+  return new Promise((resolve, reject) => {
+    pool.getConnection(function(err, connection) {
+      if (err) {
+        // callback(responseDoReturn(err,null))
+        callback && callback(err)
+        reject(err)
+      } else {
+        connection.query(sql, args,function (err, rows) {
+          connection.release();
+          callback && callback(err, rows)
+          resolve(err, rows)
+          // callback(responseDoReturn(err,rows));  
+        });
+      }
+    })
   })
 }
 
