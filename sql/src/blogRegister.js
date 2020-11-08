@@ -16,6 +16,14 @@ function addBlogUser(params, keys) {
   return s
 }
 
+function updateUser(params, keys) {
+  let s = `update bloguser set `
+  keys.filter(v => (params[v] !== undefined && params[v] !== null)).map((v, index) => {
+    s += `${index === 0 ? '' : ','}${v} = ${mysql.escape(params[v])}`
+  })
+  s += ` where id = ?`
+  return s
+}
 
 const sql = {
   // 查询有效验证码
@@ -29,12 +37,16 @@ const sql = {
     return insertCode(params, keys)
   },
   // 查询用户名是否已注册
-  queryUser: 'select * from bloguser where userName = ?',
+  queryUser: 'select * from bloguser where userName = ? or userEmail = ?',
   // 查询有效验证码数据
   queryEffCode: 'select * from verCode where userEmail = ? and code = ? and count > 0',
   // 写入用户数据
   addBlogUser: function(params, keys) {
     return addBlogUser(params, keys)
+  },
+  // 更新用户表数据
+  updateUser: function(params, keys) {
+    return updateUser(params, keys)
   }
 }
 

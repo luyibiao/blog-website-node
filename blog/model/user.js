@@ -30,7 +30,7 @@ function batchUpdateCount(ids) {
 // 查询用户名是否已注册
 function queryUser(params, res) {
   return new Promise((resolve, reject) => {
-    global.$db.queryArgs(blogRegister.queryUser, [params.userName], (err, result) => {
+    global.$db.queryArgs(blogRegister.queryUser, [params.userName, params.userEmail], (err, result) => {
       if (err) {
         res.json(global.$resultFn.resultErr(err))
       } else {
@@ -58,7 +58,7 @@ function queryUserEffCode(params, res) {
         } else {
           // 如果存在， 判断时间是否失效
           const instance = result[0]
-          const effTime = formatDatetime(new Date(instance.create_time).getTime() + 5 * 60 * 1000, 'yyyy/MM/dd hh:mm:ss')
+          const effTime = formatDatetime(new Date(instance.create_time).getTime() + 30 * 60 * 1000, 'yyyy/MM/dd hh:mm:ss')
           const nowTime = formatDatetime(new Date(), 'yyyy/MM/dd hh:mm:ss')
           if (nowTime > effTime) {
             res.json(global.$resultFn.resultErr('验证码已过期'))
@@ -133,20 +133,44 @@ async function checkBlogLogin(req, res, next) {
     return
   }
 
-  // 查询用户名是否已注册
-  const isExitUser = await queryUser(params, res)
   // 验证码验证
   await queryUserEffCode(params, res)
 
+  // 查询用户名是否已注册
+  const isExitUser = await queryUser(params, res)
+
   global.$db.queryArgs(blogRegister.updateCount, [params.userEmail])
 
-  // 如果之前已经登录过
+  // 如果存在用户
   if (isExitUser && isExitUser.length) {
-    res.json(global.$resultFn.resultSuccess({
-      id: isExitUser[0].id,
-      userName: isExitUser[0].userName,
-      userEmail: isExitUser[0].userEmail
-    }))
+    
+    const instance = isExitUser[0]
+    
+    // 如果邮箱存在但是昵称不一样
+    if (instance.userEmail === params.userEmail && instance.userName !== params.userName) {
+      const updateArrs = [
+        'userName'
+      ]
+      
+      global.$db.queryArgs(blogRegister.updateUser(params, updateArrs), [instance.id], (err, result) => {
+        if (err) {
+          res.json(global.$resultFn.resultErr(err))
+        } else {
+          res.json(global.$resultFn.resultSuccess({
+            id: instance.id,
+            userName: params.userName,
+            userEmail: instance.userEmail
+          }))
+        }
+      })
+    } else {
+      // 邮箱存在， 昵称也一样
+      res.json(global.$resultFn.resultSuccess({
+        id: instance.id,
+        userName: instance.userName,
+        userEmail: instance.userEmail
+      }))
+    }
   } else {
     // 写入数据
     const insertArrs = [
