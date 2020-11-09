@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : blog
-Source Server Version : 80011
-Source Host           : localhost:3306
+Source Server Version : 80016
+Source Host           : 127.0.0.1:3306
 Source Database       : blog-sql
 
 Target Server Type    : MYSQL
-Target Server Version : 80011
+Target Server Version : 80016
 File Encoding         : 65001
 
-Date: 2020-11-07 20:14:37
+Date: 2020-11-09 18:11:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -124,7 +124,7 @@ CREATE TABLE `bloguser` (
 -- ----------------------------
 -- Records of bloguser
 -- ----------------------------
-INSERT INTO `bloguser` VALUES ('2', '666', '1739717921@qq.com', '2020-11-07 20:09:45', '2020-11-07 20:09:45');
+INSERT INTO `bloguser` VALUES ('2', 'jiuqi', '1739717921@qq.com', '2020-11-07 20:09:45', '2020-11-09 18:07:37');
 
 -- ----------------------------
 -- Table structure for label
@@ -200,26 +200,26 @@ DROP TABLE IF EXISTS `vercode`;
 CREATE TABLE `vercode` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(50) NOT NULL COMMENT '验证码',
-  `userName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `userEmail` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '邮箱',
   `count` int(11) NOT NULL DEFAULT '1' COMMENT '可使用次数',
   `eff_time` int(11) NOT NULL DEFAULT '5' COMMENT '有效时间',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of vercode
 -- ----------------------------
-INSERT INTO `vercode` VALUES ('1', '1234', '', '56566', '0', '5', '2020-11-07 16:31:29', '2020-11-07 17:44:01');
-INSERT INTO `vercode` VALUES ('2', '1634', '', '5656', '2', '5', '2020-11-07 16:31:48', '2020-11-07 16:35:12');
-INSERT INTO `vercode` VALUES ('3', '4', '', '1739717921@qq.com', '0', '5', '2020-11-07 18:06:13', '2020-11-07 18:10:41');
-INSERT INTO `vercode` VALUES ('4', '116302', '', '1739717921@qq.com', '0', '5', '2020-11-07 18:10:41', '2020-11-07 18:10:54');
-INSERT INTO `vercode` VALUES ('5', '247706', '', '1739717921@qq.com', '0', '5', '2020-11-07 18:10:54', '2020-11-07 18:25:15');
-INSERT INTO `vercode` VALUES ('6', '22664', '', '1739717921@qq.com', '0', '5', '2020-11-07 18:25:15', '2020-11-07 20:05:12');
-INSERT INTO `vercode` VALUES ('7', '502251', '', '3237308887@qq.com', '1', '5', '2020-11-07 18:27:30', '2020-11-07 18:27:30');
-INSERT INTO `vercode` VALUES ('8', '882341', '666', '1739717921@qq.com', '0', '5', '2020-11-07 20:05:12', '2020-11-07 20:05:36');
-INSERT INTO `vercode` VALUES ('9', '852955', '666', '1739717921@qq.com', '1', '5', '2020-11-07 20:05:36', '2020-11-07 20:12:47');
-INSERT INTO `vercode` VALUES ('10', '330699', '666', '1739717921@qq.com', '0', '5', '2020-11-07 20:08:49', '2020-11-07 20:08:59');
-INSERT INTO `vercode` VALUES ('11', '790814', '666', '1739717921@qq.com', '0', '5', '2020-11-07 20:09:28', '2020-11-07 20:09:45');
+INSERT INTO `vercode` VALUES ('1', '1234', '56566', '0', '5', '2020-11-07 16:31:29', '2020-11-07 17:44:01');
+INSERT INTO `vercode` VALUES ('2', '1634', '5656', '2', '5', '2020-11-07 16:31:48', '2020-11-07 16:35:12');
+INSERT INTO `vercode` VALUES ('3', '4', '1739717921@qq.com', '0', '5', '2020-11-07 18:06:13', '2020-11-07 18:10:41');
+INSERT INTO `vercode` VALUES ('4', '116302', '1739717921@qq.com', '0', '5', '2020-11-07 18:10:41', '2020-11-07 18:10:54');
+INSERT INTO `vercode` VALUES ('5', '247706', '1739717921@qq.com', '0', '5', '2020-11-07 18:10:54', '2020-11-07 18:25:15');
+INSERT INTO `vercode` VALUES ('6', '22664', '1739717921@qq.com', '0', '5', '2020-11-07 18:25:15', '2020-11-07 20:05:12');
+INSERT INTO `vercode` VALUES ('7', '502251', '3237308887@qq.com', '1', '5', '2020-11-07 18:27:30', '2020-11-07 18:27:30');
+INSERT INTO `vercode` VALUES ('8', '882341', '1739717921@qq.com', '0', '5', '2020-11-07 20:05:12', '2020-11-07 20:05:36');
+INSERT INTO `vercode` VALUES ('9', '852955', '1739717921@qq.com', '0', '5', '2020-11-07 20:05:36', '2020-11-09 18:07:20');
+INSERT INTO `vercode` VALUES ('10', '330699', '1739717921@qq.com', '0', '5', '2020-11-07 20:08:49', '2020-11-07 20:08:59');
+INSERT INTO `vercode` VALUES ('11', '790814', '1739717921@qq.com', '0', '5', '2020-11-07 20:09:28', '2020-11-07 20:09:45');
+INSERT INTO `vercode` VALUES ('12', '26109', '1739717921@qq.com', '0', '5', '2020-11-09 18:07:20', '2020-11-09 18:07:37');

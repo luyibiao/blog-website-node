@@ -75,10 +75,6 @@ function queryUserEffCode(params, res) {
 // 发送验证码
 async function sendCode(req, res) {
   const params = global.$overall.getReqParamsAll(req)
-  if (!params.userName) {
-    res.json(global.$resultFn.resultErr('昵称不能为空'))
-    return
-  }
   if (!params.userEmail) {
     res.json(global.$resultFn.resultErr('邮箱不能为空'))
     return
@@ -100,7 +96,7 @@ async function sendCode(req, res) {
 
   // 写入数据
   const arr = [
-    'code', 'userEmail', 'userName'
+    'code', 'userEmail'
   ]
   global.$db.query(blogRegister.insertCode(params, arr), (err, result) => {
     if (err) {
@@ -143,9 +139,7 @@ async function checkBlogLogin(req, res, next) {
 
   // 如果存在用户
   if (isExitUser && isExitUser.length) {
-    
     const instance = isExitUser[0]
-    
     // 如果邮箱存在但是昵称不一样
     if (instance.userEmail === params.userEmail && instance.userName !== params.userName) {
       const updateArrs = [
