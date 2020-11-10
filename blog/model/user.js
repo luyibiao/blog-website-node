@@ -153,7 +153,8 @@ async function checkBlogLogin(req, res, next) {
           res.json(global.$resultFn.resultSuccess({
             id: instance.id,
             userName: params.userName,
-            userEmail: instance.userEmail
+            userEmail: instance.userEmail,
+            bg_color: instance.bg_color
           }))
         }
       })
@@ -162,14 +163,16 @@ async function checkBlogLogin(req, res, next) {
       res.json(global.$resultFn.resultSuccess({
         id: instance.id,
         userName: instance.userName,
-        userEmail: instance.userEmail
+        userEmail: instance.userEmail,
+        bg_color: instance.bg_color
       }))
     }
   } else {
     // 写入数据
     const insertArrs = [
-      'userName', 'userEmail'
+      'userName', 'userEmail', 'bg_color'
     ]
+    params.bg_color = global.$overall.randomHexColorCode()
     global.$db.query(blogRegister.addBlogUser(params, insertArrs), (err, result) => {
       if (err) {
         res.json(global.$resultFn.resultErr(err))

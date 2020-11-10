@@ -124,6 +124,12 @@ function getTotal(t) {
   return Object.values(t[0])[0]
 }
 
+// 随机十六进制颜色
+function randomHexColorCode() {
+  let n = (Math.random() * 0xfffff * 1000000).toString(16);
+  return '#' + n.slice(0, 6);
+}
+
 module.exports = {
   getArgs,
   getReqParams,
@@ -132,5 +138,6 @@ module.exports = {
   setPagination,
   getPagination,
   relyOn,
-  freameuUploadImg
+  freameuUploadImg,
+  randomHexColorCode
 }

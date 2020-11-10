@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80016
 File Encoding         : 65001
 
-Date: 2020-11-09 18:11:07
+Date: 2020-11-10 18:13:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -116,6 +116,7 @@ CREATE TABLE `bloguser` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userName` varchar(255) NOT NULL DEFAULT '' COMMENT '用户名',
   `userEmail` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `bg_color` varchar(15) DEFAULT NULL COMMENT '背景颜色',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -124,7 +125,7 @@ CREATE TABLE `bloguser` (
 -- ----------------------------
 -- Records of bloguser
 -- ----------------------------
-INSERT INTO `bloguser` VALUES ('2', 'jiuqi', '1739717921@qq.com', '2020-11-07 20:09:45', '2020-11-09 18:07:37');
+INSERT INTO `bloguser` VALUES ('2', 'jiuqi', '1739717921@qq.com', null, '2020-11-07 20:09:45', '2020-11-09 18:07:37');
 
 -- ----------------------------
 -- Table structure for label
