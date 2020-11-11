@@ -18,7 +18,8 @@
     "multer": "^1.4.2",
     "mysql": "^2.18.1",
     "nodemailer": "^6.4.14",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "svg-captcha": "^1.4.0"
   },
   "devDependencies": {
     "cors": "^2.8.5",
