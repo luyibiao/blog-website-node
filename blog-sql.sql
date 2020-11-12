@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80016
 File Encoding         : 65001
 
-Date: 2020-11-10 18:13:27
+Date: 2020-11-12 18:22:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -54,17 +54,19 @@ CREATE TABLE `articletype` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(11) NOT NULL DEFAULT '1' COMMENT '类型码',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文章类型名称',
+  `side_column` text CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '栏目下所要展示的侧边栏',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of articletype
 -- ----------------------------
-INSERT INTO `articletype` VALUES ('1', 'SKILL', '技术分享', '2020-10-23 11:15:53', '2020-10-29 11:45:49');
-INSERT INTO `articletype` VALUES ('2', 'ESSAY', '心情随笔', '2020-10-23 11:15:53', '2020-10-29 11:45:56');
-INSERT INTO `articletype` VALUES ('11', 'STUDY', '书屋', '2020-10-30 10:45:20', '2020-10-30 10:45:20');
+INSERT INTO `articletype` VALUES ('1', 'SKILL', '技术分享', 'LOOK-AROUND', '2020-10-23 11:15:53', '2020-11-12 18:06:02');
+INSERT INTO `articletype` VALUES ('2', 'ESSAY', '心情随笔', null, '2020-10-23 11:15:53', '2020-10-29 11:45:56');
+INSERT INTO `articletype` VALUES ('11', 'STUDY', '书屋', null, '2020-10-30 10:45:20', '2020-10-30 10:45:20');
+INSERT INTO `articletype` VALUES ('14', 'HOME', '首页', null, '2020-11-12 18:04:30', '2020-11-12 18:04:30');
 
 -- ----------------------------
 -- Table structure for articletype_item
@@ -174,6 +176,24 @@ CREATE TABLE `mine` (
 -- Records of mine
 -- ----------------------------
 INSERT INTO `mine` VALUES ('1', 'http://192.168.100.169:3000/static/real/a-test11603419876675.png', '1321', '123213个梵蒂冈梵蒂冈', '<p>1232</p>', '2020-10-22 17:59:37', '2020-10-23 10:24:38');
+
+-- ----------------------------
+-- Table structure for side_column
+-- ----------------------------
+DROP TABLE IF EXISTS `side_column`;
+CREATE TABLE `side_column` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(30) NOT NULL COMMENT '侧边栏目code',
+  `column_name` varchar(50) NOT NULL DEFAULT '' COMMENT '栏目名称',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of side_column
+-- ----------------------------
+INSERT INTO `side_column` VALUES ('1', 'LOOK-AROUND', '随便看看', '2020-11-12 18:05:03', '2020-11-12 18:06:12');
 
 -- ----------------------------
 -- Table structure for user
