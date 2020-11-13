@@ -58,7 +58,7 @@ function queryArticleType(req, res) {
 async function addArticleType(req, res) {
   const isExit = await checkArticleType(req, res)
   if (isExit) {
-    global.$db.queryArgs(sql.addArticleType, global.$overall.getArgs(req, 'name', 'code') , err => {
+    global.$db.queryArgs(sql.addArticleType, global.$overall.getArgs(req, 'name', 'code', 'route_url') , err => {
       if (err) {
         res.json(global.$resultFn.resultErr(err))
         return
@@ -179,6 +179,75 @@ function queryTypeOrSecondsType(req, res) {
   return 
 }
 
+// 增加侧边栏目
+function addSideColumn(req, res) {
+  const params = global.$overall.getReqParamsAll(req)
+  if (!params.column_name) {
+    res.json(global.$resultFn.resultErr('栏目名称为空'))
+    return
+  }
+  if (!params.code) {
+    res.json(global.$resultFn.resultErr('栏目code为空'))
+    return
+  }
+  const arrs = [
+    'column_name', 'code'
+  ]
+  global.$db.query(sql.addSideColum(params, arrs), (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess({}))
+    }
+  })
+  return
+}
+
+// 获取侧边栏 
+function querySideColumn(req, res) {
+  global.$db.query(sql.querySideColumn, (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess(result, false))
+    }
+  })
+  return
+}
+
+// 删除侧边栏
+function deleteSideCoulmn(req, res) {
+  console.log(sql.deleteSideCoulmn, global.$overall.getArgs(req, 'id'))
+  global.$db.queryArgs(sql.deleteSideCoulmn, global.$overall.getArgs(req, 'id'), (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess({}))
+    }
+  })
+  return
+}
+
+// 修改侧边栏
+function updateSideColumn(req, res) {
+  const params = global.$overall.getReqParamsAll(req)
+  if (!params.column_name) {
+    res.json(global.$resultFn.resultErr('栏目名称为空'))
+    return
+  }
+  const arr = [
+    'column_name'
+  ]
+  global.$db.queryArgs(sql.updateSideColumn(params, arr), global.$overall.getArgs(req, 'id'), (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess({}))
+    }
+  })
+  return
+}
+
 module.exports = {
   queryArticleType,
   addArticleType,
@@ -188,5 +257,9 @@ module.exports = {
   deleteSecondsArticle,
   querySecondsArticleType,
   updateSecondsArticle,
-  queryTypeOrSecondsType
+  queryTypeOrSecondsType,
+  addSideColumn,
+  querySideColumn,
+  deleteSideCoulmn,
+  updateSideColumn
 }

@@ -45,6 +45,25 @@ global.$router.post('/queryTypeOrSecondsType', function(req, res, next) {
   model.queryTypeOrSecondsType(req, res, next)
 })
 
+// 增加侧边栏
+global.$router.post('/addSideColumn', function(req, res, next) {
+  model.addSideColumn(req, res, next)
+})
+
+// 获取侧边栏
+global.$router.post('/querySideColumn', function(req, res, next) {
+  model.querySideColumn(req, res, next)
+})
+
+// 删除侧边栏
+global.$router.post('/deletesSideCoulmn', function(req, res, next) {
+  model.deleteSideCoulmn(req, res, next)
+})
+// 修改侧边栏
+global.$router.post('/updateSideColumn', function(req, res, next) {
+  model.updateSideColumn(req, res, next)
+})
+
 // 转发网易云热评歌曲api 
 // global.$router.post('/queryWYYmusic', function(req, res, next ) {
 //   const request = require('request');

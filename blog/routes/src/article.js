@@ -9,4 +9,9 @@ global.$blogRouter.post('/queryArticleDetail', (req, res, next) => {
   article.queryArticleDetail(req, res, next)
 })
 
+// 获取文章类型
+global.$blogRouter.post('/queryArticleType', (req, res, next) => {
+  article.queryArticleType(req, res, next)
+})
+
 module.exports = global.$blogRouter

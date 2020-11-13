@@ -17,6 +17,23 @@ function updateArticleType(params, keys, str = 'articletype') {
   return s
 }
 
+function addSideColum(params, keys) {
+  let s = `insert into side_column set `
+  keys.map((v, index) => {
+    s += `${index === 0 ? '' : ','}${v}=${mysql.escape(params[v])}`
+  })
+  return s
+}
+
+function updateSideColumn(params, keys) {
+  let s = `update side_column set `
+  keys.filter(v => (params[v] !== undefined && params[v] !== null)).map((v, index) => {
+    s += `${index === 0 ? '' : ','}${v} = ${mysql.escape(params[v])}`
+  })
+  s += ` where id = ?`
+  return s
+}
+
 const sql = {
   // 查询一级栏目
   queryArticleType: `SELECT
@@ -32,7 +49,7 @@ const sql = {
  FROM
   articletype a`,
   // 增加一级栏目
-  addArticleType: 'insert into articletype set name = ?, code = ?',
+  addArticleType: 'insert into articletype set name = ?, code = ?, route_url = ?',
   //  查询是否已存在栏目
   quertExitArticle: 'select * from articletype where name = ? or code = ?',
   // 删除一级栏目
@@ -76,7 +93,19 @@ a.articletype_id = pa.id
   // 查询一级栏目下某二级栏目下是否被注册过
   querySecondsExit: 'SELECT * from articletype_item as a where a.articletype_id = ? and (a.code = ? or a.name = ?)',
   // 根据一级栏目查询二级栏目
-  queryTypeOrSecondsType: 'select * from articletype_item as a where a.articletype_code = ?'
+  queryTypeOrSecondsType: 'select * from articletype_item as a where a.articletype_code = ?',
+  // 增加侧边栏目
+  addSideColum: function(params, keys) {
+    return addSideColum(params, keys)
+  },
+  // 获取侧边栏
+  querySideColumn: 'select * from side_column',
+  // 删除侧边栏
+  deleteSideCoulmn: 'delete from side_column where id = ?',
+  // 修改侧边栏
+  updateSideColumn: function(params, keys) {
+    return updateSideColumn(params, keys)
+  }
 }
 
 module.exports = sql

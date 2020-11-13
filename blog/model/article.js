@@ -1,4 +1,4 @@
-const {article, label: labSql, banner: bannerSql } = global.$sql('article', 'label', 'banner')
+const {article, article_type: articleTypeSql } = global.$sql('article', 'article_type')
 
 // 拿文章列表
 function getArticleList(req, res) {
@@ -39,7 +39,22 @@ function queryArticleDetail(req, res) {
   return
 }
 
+// 拿文章类型
+function queryArticleType(req, res) {
+  global.$db.query(articleTypeSql.queryArticleType, (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+      return
+    }
+    
+    res.json(global.$resultFn.resultSuccess(result, false))
+    return
+  })
+  return
+}
+
 module.exports = {
   getArticleList,
-  queryArticleDetail
+  queryArticleDetail,
+  queryArticleType
 }
