@@ -6,10 +6,10 @@ function checkArticleType(req, res) {
   return new Promise((resolve, reject) => {
     const params = global.$overall.getReqParamsAll(req)
     global.$db.queryArgs(sql.quertExitArticle, global.$overall.getArgs(req, 'name', 'code'), (e, result) => {
-      if (!result[0]) {
+      const instance = result[0] || {}
+      if (instance.id == params.id || !result[0]) {
         resolve(true)
       } else {
-        const instance = result[0]
         if (instance.name === params.name) {
           res.json(global.$resultFn.resultErr('名称已存在'))
         } else {
@@ -58,7 +58,9 @@ function queryArticleType(req, res) {
 async function addArticleType(req, res) {
   const isExit = await checkArticleType(req, res)
   if (isExit) {
-    global.$db.queryArgs(sql.addArticleType, global.$overall.getArgs(req, 'name', 'code', 'route_url') , err => {
+    const params = global.$overall.getReqParamsAll(req)
+    const arr = ['name', 'code', 'route_url', 'side_column']
+    global.$db.query(sql.addArticleType(params, arr) , err => {
       if (err) {
         res.json(global.$resultFn.resultErr(err))
         return
@@ -91,7 +93,7 @@ async function updateArticleType(req, res) {
   const isExit = await checkArticleType(req, res)
   if (isExit) {
     const params = global.$overall.getReqParamsAll(req)
-    const arrs = ['name']
+    const arrs = ['name', 'route_url', 'side_column']
     global.$db.queryArgs(sql.updateArticleType(params, arrs), global.$overall.getArgs(req, 'id') , err => {
       if (err) {
         res.json(global.$resultFn.resultErr(err))

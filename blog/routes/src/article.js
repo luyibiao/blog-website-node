@@ -1,7 +1,7 @@
 const article = require('../../model/article')
 
 global.$blogRouter.post('/getArticleList', (req, res, next) => {
-  article.getArticleList(req, res, next)
+  article.getArticleList(req, res)
 })
 
 // 查询文章详情

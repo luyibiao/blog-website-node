@@ -1,5 +1,13 @@
 const mysql = require('mysql')
 
+function addArticleType(params, keys) {
+  let s = `insert into articletype set `
+  keys.map((v, index) => {
+    s += `${index === 0 ? '' : ','}${v}=${mysql.escape(params[v])}`
+  })
+  return s
+}
+
 function addSecondsSQL(params, keys) {
   let s = `insert into articletype_item set `
   keys.map((v, index) => {
@@ -49,7 +57,9 @@ const sql = {
  FROM
   articletype a`,
   // 增加一级栏目
-  addArticleType: 'insert into articletype set name = ?, code = ?, route_url = ?',
+  addArticleType: function(params, keys) {
+    return addArticleType(params, keys)
+  },
   //  查询是否已存在栏目
   quertExitArticle: 'select * from articletype where name = ? or code = ?',
   // 删除一级栏目

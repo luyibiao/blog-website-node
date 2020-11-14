@@ -6,7 +6,7 @@ const mysql = {
   // 用户名
   user: 'root',
   // 用户密码
-  password: 'mysqlroot.',
+  password: 'rootmysql.',
   // 数据库名字
   database: 'blog-sql',
   // 强制日期类型（TIMESTAMP，DATETIME，DATE）以字符串形式返回

@@ -1,10 +1,11 @@
 const {article, article_type: articleTypeSql } = global.$sql('article', 'article_type')
 
-// 拿文章列表
+// 获取全部文章列表
 function getArticleList(req, res) {
   const pagesList = global.$overall.setPagination(req)
+  req.body.status = 'LINE'
   const arrs = [
-    'title', 'create_time', 'type', 'author', 'status', 'child_type', 'hot_comments', 'topping'
+     'type', 'status', 'child_type', 'hot_comments'
   ]
 
   global.$db.queryArgs(article.query(req, arrs), pagesList, (err, result) => {
@@ -24,8 +25,8 @@ function getArticleList(req, res) {
   return
 }
 
-// 拿推荐文章列表
-// function get
+// 获取热门文章
+// function getHotArticle(req, res) {}
 
 // 获取文章详情
 function queryArticleDetail(req, res) {
