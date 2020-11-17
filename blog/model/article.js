@@ -3,12 +3,14 @@ const {article, article_type: articleTypeSql } = global.$sql('article', 'article
 // 获取全部文章列表
 function getArticleList(req, res) {
   const pagesList = global.$overall.setPagination(req)
+  const params = global.$overall.getReqParamsAll(req)
+  const { timeType } = params
   req.body.status = 'LINE'
   const arrs = [
-     'type', 'status', 'child_type', 'hot_comments'
+     'type', 'status', 'child_type', 'hot_comments', 'recommend'
   ]
 
-  global.$db.queryArgs(article.query(req, arrs), pagesList, (err, result) => {
+  global.$db.queryArgs(article.query(req, arrs, timeType), pagesList, (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
@@ -24,9 +26,6 @@ function getArticleList(req, res) {
   })
   return
 }
-
-// 获取热门文章
-// function getHotArticle(req, res) {}
 
 // 获取文章详情
 function queryArticleDetail(req, res) {
@@ -54,8 +53,25 @@ function queryArticleType(req, res) {
   return
 }
 
+// 随便看看
+function queryRandowArticle(req, res) {
+  console.log(121212212, article.queryRandowArticle(), )
+  global.$db.query(article.queryRandowArticle(), (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+      return
+    }
+    res.json(global.$resultFn.resultSuccess(result, false))
+    return
+  })
+  return
+}
+
+
+
 module.exports = {
   getArticleList,
   queryArticleDetail,
-  queryArticleType
+  queryArticleType,
+  queryRandowArticle
 }

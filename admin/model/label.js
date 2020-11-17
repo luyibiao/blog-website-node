@@ -59,15 +59,7 @@ function deleteLabel(req, res) {
 function queryLabel(req, res) {
   const arrs = ['label', 'hot']
   const pagesList = global.$overall.setPagination(req)
-  const pages = [
-    // 普通参数
-    // ...global.$overall.getArgs(req, ...arrs).filter(v => v),
-    // 分页参数
-    ...pagesList
-    // 普通参数
-    // ...global.$overall.getArgs(req, ...arrs).filter(v => v),
-  ]
-  global.$db.queryArgs(sql.queryAll(arrs, req), pages, (err, result) => {
+  global.$db.queryArgs(sql.queryAll(arrs, req), pagesList, (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {

@@ -19,10 +19,10 @@ function addSQL(params, keys) {
   return s
 }
 
-function query(key, req) {
+function query(key, req, time = 'create_time') {
   const s = global.$overall.relyOn(key, req, true)
   const s0 = `select * from article ` + s + getTime(s, req)
-  const s1 = s0 + ' ORDER BY create_time desc limit ?, ?'
+  const s1 = s0 + ` ORDER BY ${time} desc limit ?, ?`
   const s2 = `;select count(*) from article ` + s + getTime(s, req)
   return s1 + s2 
 }
@@ -42,8 +42,8 @@ const sql = {
     return addSQL(params, keys)
   },
   // 查询文章
-  query: function(req, keys) {
-    return query(keys, req)
+  query: function(req, keys, time) {
+    return query(keys, req, time)
   },
   // 修改文章
   update: function(params, ...keys) {
@@ -56,6 +56,11 @@ const sql = {
   // 删除文章
   deleteDetail: function() {
     return `delete from article where id = ?`
+  },
+  // 随机获取数据
+  queryRandowArticle(nums = 4) {
+    console.log(6666)
+    return `SELECT * FROM article ORDER BY RAND() LIMIT ${nums}`
   }
 }
 

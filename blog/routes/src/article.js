@@ -14,4 +14,9 @@ global.$blogRouter.post('/queryArticleType', (req, res, next) => {
   article.queryArticleType(req, res, next)
 })
 
+// 随便看看
+global.$blogRouter.post('/queryRandowArticle', (req, res, next) => {
+  article.queryRandowArticle(req, res, next)
+})
+
 module.exports = global.$blogRouter
