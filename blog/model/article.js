@@ -55,7 +55,6 @@ function queryArticleType(req, res) {
 
 // 随便看看
 function queryRandowArticle(req, res) {
-  console.log(121212212, article.queryRandowArticle(), )
   global.$db.query(article.queryRandowArticle(), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
@@ -67,11 +66,44 @@ function queryRandowArticle(req, res) {
   return
 }
 
+// 获取文章子类型
+function queryArticleChildType(req, res) {
+  const params = global.$overall.getArgs(req, 'code') 
+  global.$db.queryArgs(articleTypeSql.qertSecondsCodeType, params,  (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+      return
+    }
+    res.json(global.$resultFn.resultSuccess(result))
+    return
+  })
+  return
+}
+
+// 设置观看数
+function setWatchNum(req, res) {
+  const params = global.$overall.getReqParamsAll(req)
+  const arrs = [
+    'num', 'ip_address'
+  ]
+  global.$db.queryArgs(article.updateWatchNum(params, arrs), [params.article_id],  (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+      return
+    }
+    res.json(global.$resultFn.resultSuccess({}))
+    return
+  })
+  return
+}
+
 
 
 module.exports = {
   getArticleList,
   queryArticleDetail,
   queryArticleType,
-  queryRandowArticle
+  queryRandowArticle,
+  queryArticleChildType,
+  setWatchNum
 }

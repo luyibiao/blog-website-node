@@ -1,5 +1,7 @@
 const mysql = require('mysql')
 
+const basis = 'select a.*, w.ip_address as ip_address, w.num as watch_num from article as a INNER JOIN watch_num as w on a.id = w.article_id'
+
 function getTime(s, req) {
   const create_time = global.$overall.getReqParams(req, 'create_time').create_time
   if (!create_time) return ``
@@ -21,7 +23,7 @@ function addSQL(params, keys) {
 
 function query(key, req, time = 'create_time') {
   const s = global.$overall.relyOn(key, req, true)
-  const s0 = `select * from article ` + s + getTime(s, req)
+  const s0 = `${basis} ` + s + getTime(s, req)
   const s1 = s0 + ` ORDER BY ${time} desc limit ?, ?`
   const s2 = `;select count(*) from article ` + s + getTime(s, req)
   return s1 + s2 
@@ -51,7 +53,7 @@ const sql = {
   },
   // 查询文章详情
   quertyDetail: function() {
-    return `select * from article where id = ?` 
+    return `${basis} where a.id = ?` 
   },
   // 删除文章
   deleteDetail: function() {
@@ -59,8 +61,16 @@ const sql = {
   },
   // 随机获取数据
   queryRandowArticle(nums = 4) {
-    console.log(6666)
     return `SELECT * FROM article ORDER BY RAND() LIMIT ${nums}`
+  },
+  // 修改观看数表
+  updateWatchNum(params, keys) {
+    let s = `update watch_num set num = num +1 `
+    keys.filter(v => (params[v] !== undefined && params[v] !== null)).map((v, index) => {
+      s += `${index === 0 ? '' : ','}${v} = ${mysql.escape(params[v])}`
+    })
+    s += ` where article_id = ?`
+    return s
   }
 }
 
