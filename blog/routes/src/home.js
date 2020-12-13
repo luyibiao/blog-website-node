@@ -15,4 +15,8 @@ global.$blogRouter.post('/queryMineInfo', (req, res, next) => {
   home.queryMineInfo(req, res, next)
 })
 
+global.$blogRouter.get('/aa', (req, res, next) => {
+  res.json('电饭锅被警方发')
+})
+
 module.exports = global.$blogRouter
