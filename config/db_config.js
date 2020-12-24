@@ -4,9 +4,9 @@ const mysql = {
   // 数据库地址
   host: '127.0.0.1',
   // 用户名
-  user: 'root',
+  user: '97blog',
   // 用户密码
-  password: 'rootmysql.',
+  password: '97blogroot.',
   // 数据库名字
   database: 'blog-sql',
   // 强制日期类型（TIMESTAMP，DATETIME，DATE）以字符串形式返回
