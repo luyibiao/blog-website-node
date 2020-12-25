@@ -21,11 +21,9 @@ var loadRoute = {
 
   // 加载路由
   loadRoute: function(routeFile) {
-    var pathArr = routeFile.split('\\');
-    var routeName = pathArr[pathArr.length-1].replace(/(.*)\.\w+$/,'$1');
-    
     var route = require(routeFile.substring(0,routeFile.lastIndexOf('.')));
-    this.app.use("/" + routeName, route);
+    
+    this.app.use("/" + path.basename(routeFile, path.extname(routeFile)), route);
   },
 
   // 初始化入口

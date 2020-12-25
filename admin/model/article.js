@@ -32,6 +32,14 @@ function addLabelNum(arr = []) {
   })
 }
 
+// 插入观看数
+function insertWatchNum(req) {
+  const params = global.$overall.getReqParamsAll(req)
+  const info = {
+    // article_id: params.id
+  }
+}
+
 // 增加文章
 async function add(req, res) {
   const params = global.$overall.getReqParamsAll(req)
@@ -62,6 +70,7 @@ async function query(req, res) {
   const arrs = [
     'title', 'create_time', 'type', 'author', 'status', 'child_type', 'hot_comments', 'topping', 'recommend'
   ]
+  console.log(sql.query(req, arrs))
   global.$db.queryArgs(sql.query(req, arrs), pagesList, (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))

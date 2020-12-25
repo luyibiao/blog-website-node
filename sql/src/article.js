@@ -63,6 +63,15 @@ const sql = {
   queryRandowArticle(nums = 4) {
     return `SELECT * FROM article ORDER BY RAND() LIMIT ${nums}`
   },
+
+  // 插入观看数
+  addWatchNum(params, keys) {
+    let s = 'insert into watch_num set '
+    keys.map((v, index) => {
+      s += `${index === 0 ? '' : ','}${v}=${mysql.escape(params[v]) || ''}`
+    })
+    return s
+  },
   // 修改观看数表
   updateWatchNum(params, keys) {
     let s = `update watch_num set num = num +1 `
