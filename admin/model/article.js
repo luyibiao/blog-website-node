@@ -33,11 +33,33 @@ function addLabelNum(arr = []) {
 }
 
 // 插入观看数
-function insertWatchNum(req) {
-  const params = global.$overall.getReqParamsAll(req)
-  const info = {
-    // article_id: params.id
+function insertWatchNum(result) {
+  const arrs = [
+    'article_id'
+  ]
+  const params = {
+    article_id: result[1][0].new_id,
   }
+  return new Promise((resolve, reject) => {
+    global.$db.query(sql.addWatchNum(params, arrs), (err, result) => {
+      if (err) {
+        reject()
+      } else {
+        resolve()
+      }
+    })
+  })
+  // global.$db.query(, (err, result) => {
+  //   if (err) {
+  //     res.json(global.$resultFn.resultErr(err))
+  //   } else {
+  //     console.log(result)
+  //   }
+  // })
+  // const params = global.$overall.getReqParamsAll(req)
+  // const info = {
+  //   // article_id: params.id
+  // }
 }
 
 // 增加文章
@@ -53,11 +75,12 @@ async function add(req, res) {
   const arrs = [
     'title', 'author', 'label', 'content', 'contentdesc', 'type', 'child_type', 'status', 'logo'
   ]
-  global.$db.query(sql.add(params, ...arrs), (err, result) => {
+  global.$db.query(sql.add(params, ...arrs), async (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
       addLabelNum(JSON.parse(params.label || '[]'))
+      await insertWatchNum(result, params)
       res.json(global.$resultFn.resultSuccess({}))
     }
   })
@@ -108,7 +131,9 @@ async function update(req, res) {
   const arrs = [
     'title', 'author', 'label', 'content', 'contentdesc', 'type', 'child_type', 'status', 'logo', 'hot_comments', 'topping', 'id', 'recommend'
   ]
+  console.log(sql.update(params, ...arrs), 'sql.update(params, ...arrs)')
   global.$db.queryArgs(sql.update(params, ...arrs), [params.id], (err, result) => {
+    console.log('oooooooooooooooooooooooooooooooo')
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {

@@ -107,6 +107,7 @@ function freameuUploadImg(paths, fName) {
     const uploadDir = path.join(__dirname, '../images/real/' + fName) ;
     fs.copyFile(paths, uploadDir, function(err) {
       if (err) {
+        console.log('错误')
         reject(err)
         return
       }

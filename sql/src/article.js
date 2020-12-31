@@ -18,6 +18,7 @@ function addSQL(params, keys) {
   keys.map((v, index) => {
     s += `${index === 0 ? '' : ','}${v}=${mysql.escape(params[v])}`
   })
+  s += ';SELECT LAST_INSERT_ID() as new_id'
   return s
 }
 
@@ -31,7 +32,7 @@ function query(key, req, time = 'create_time') {
 
 function update(params, keys) {
   let s = `update article set `
-  keys.filter(v => (params[v] !== undefined && params[v] !== null)).map((v, index) => {
+  keys.filter(v => (params[v] !== undefined && params[v] !== null && v !== 'id')).map((v, index) => {
     s += `${index === 0 ? '' : ','}${v} = ${mysql.escape(params[v])}`
   })
   s += ` where id = ?`
@@ -80,6 +81,9 @@ const sql = {
     })
     s += ` where article_id = ?`
     return s
+  },
+  querylast_insert_id() {
+    return 'SELECT LAST_INSERT_ID() as new_id'
   }
 }
 

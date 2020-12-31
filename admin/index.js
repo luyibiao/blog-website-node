@@ -6,14 +6,15 @@ const token = require('./token/token')
 
 // 获取传过来的token值
 function getCookie(req) {
-  return cookies = req.cookies ? req.cookies.token || '' : ''
+  return cookies = req.headers.token ? req.headers.token || '' : ''
 }
 
 const rouArrs = [
-  '/user/login', '/type/queryArticleType'
+  '/user/login', '/type/queryArticleType', '/upload/upload'
 ]
 // token检验
 router.use((req, res, next) => {
+  console.log(req.originalUrl)
   if (rouArrs.includes(req.originalUrl)) {
     next()
   } else {
