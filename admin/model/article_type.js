@@ -219,7 +219,6 @@ function querySideColumn(req, res) {
 
 // 删除侧边栏
 function deleteSideCoulmn(req, res) {
-  console.log(sql.deleteSideCoulmn, global.$overall.getArgs(req, 'id'))
   global.$db.queryArgs(sql.deleteSideCoulmn, global.$overall.getArgs(req, 'id'), (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))

@@ -13,10 +13,12 @@ async function addMine(req, res) {
     return
   }
   if (params.logoPath) {
-    const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
-      res.json(global.$resultFn.resultErr(e))
-    })
-    params.avatar = u.url
+    // const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
+    //   res.json(global.$resultFn.resultErr(e))
+    // })
+    const a = params.logoPath.split('/') || []
+    params.avatar = global.$overall.HOST_NAME + '/images/' + a[a.length - 1]
+
   }
   const arr = [
     'description', 'profile', 'content', 'avatar'
@@ -55,10 +57,12 @@ async function updateMine(req, res) {
     return
   }
   if (params.logoPath) {
-    const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
-      res.json(global.$resultFn.resultErr(e))
-    })
-    params.avatar = u.url
+    // const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
+    //   res.json(global.$resultFn.resultErr(e))
+    // })
+    // params.avatar = u.url
+    const a = params.logoPath.split('/') || []
+    params.avatar = global.$overall.HOST_NAME + '/images/' + a[a.length - 1]
   }
   if (!params.logoPath && !params.avatar) {
     params.avatar = ''

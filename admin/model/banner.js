@@ -17,10 +17,12 @@ async function addBanner(req, res, next) {
     return
   }
   if (params.logoPath) {
-    const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
-      res.json(global.$resultFn.resultErr(e))
-    })
-    params.imgUrl = u.url
+    // const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
+    //   res.json(global.$resultFn.resultErr(e))
+    // })
+    const a = params.logoPath.split('/') || []
+    params.imgUrl = global.$overall.HOST_NAME + '/images/' + a[a.length - 1]
+    // params.imgUrl = u.url
   }
   const arr = [
     'article_id', 'type', 'imgUrl', 'url'
@@ -68,10 +70,12 @@ async function upadteBanner(req, res, next) {
     return
   }
   if (params.logoPath) {
-    const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
-      res.json(global.$resultFn.resultErr(e))
-    })
-    params.imgUrl = u.url
+    // const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
+    //   res.json(global.$resultFn.resultErr(e))
+    // })
+    // params.imgUrl = u.url
+    const a = params.logoPath.split('/') || []
+    params.imgUrl = global.$overall.HOST_NAME + '/images/' + a[a.length - 1]
   }
   const arr = [
     'article_id', 'type', 'imgUrl', 'url'

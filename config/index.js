@@ -27,12 +27,16 @@ function queryArgs(sql, args, callback) {
         callback && callback(err)
         reject(err)
       } else {
-        connection.query(sql, args,function (err, rows) {
-          connection.release();
-          callback && callback(err, rows)
-          resolve(err, rows)
-          // callback(responseDoReturn(err,rows));  
-        });
+        try {
+          connection.query(sql, args,function (err, rows) {
+            connection.release();
+            callback && callback(err, rows)
+            resolve(err, rows)
+            // callback(responseDoReturn(err,rows));  
+          });
+        } catch (error) {
+        }
+        
       }
     })
   })

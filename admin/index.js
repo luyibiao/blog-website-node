@@ -14,7 +14,6 @@ const rouArrs = [
 ]
 // token检验
 router.use((req, res, next) => {
-  console.log(req.originalUrl)
   if (rouArrs.includes(req.originalUrl)) {
     next()
   } else {

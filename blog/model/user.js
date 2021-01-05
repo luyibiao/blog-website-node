@@ -4,7 +4,7 @@ const { blogRegister } = global.$sql('blogRegister')
 const { createCode, formatDatetime } = require('../../untils/helper')
 const email = require('../../email')
 
-function queryEffCode(params) {
+function queryEffCode(params, res) {
   return new Promise((resolve, reject) => {
     global.$db.queryArgs(blogRegister.queryVerCode, [params.userEmail], (err, result) => {
       if (err) {

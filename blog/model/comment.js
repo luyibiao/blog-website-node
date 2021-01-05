@@ -51,8 +51,23 @@ function queryComments(req, res) {
   return
 }
 
+// 获取评论数
+function queryCommonetCount(req, res) {
+  const params = global.$overall.getReqParamsAll(req)
+  global.$db.queryArgs(comment.queryCommonets(), [params.id], (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess(result))
+    }
+    return
+  })
+  return
+}
+
 module.exports = {
   sendImgCode,
   addComment,
-  queryComments
+  queryComments,
+  queryCommonetCount
 }

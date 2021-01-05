@@ -7,7 +7,7 @@ global.$router.post('/upload', function(req, res, next) {
     form.encoding = 'utf-8' // 编码
     form.keepExtensions = true // 保留扩展名
     // 临时目录
-    form.uploadDir = path.join(__dirname, '../../../images/temporary/')
+    form.uploadDir = path.join(__dirname, '../../../images/real/')
     form.parse(req, (err, fields, files) => {
       if (err) {
         res.json(global.$resultFn.resultErr(err))

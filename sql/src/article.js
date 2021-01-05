@@ -84,7 +84,7 @@ const sql = {
   },
   querylast_insert_id() {
     return 'SELECT LAST_INSERT_ID() as new_id'
-  }
+  },
 }
 
 module.exports = sql

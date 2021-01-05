@@ -107,7 +107,6 @@ function freameuUploadImg(paths, fName) {
     const uploadDir = path.join(__dirname, '../images/real/' + fName) ;
     fs.copyFile(paths, uploadDir, function(err) {
       if (err) {
-        console.log('错误')
         reject(err)
         return
       }
@@ -131,6 +130,9 @@ function randomHexColorCode() {
   return '#' + n.slice(0, 6);
 }
 
+// 域名
+const HOST_NAME = 'http://www.97blognb.cn'
+
 module.exports = {
   getArgs,
   getReqParams,
@@ -140,5 +142,6 @@ module.exports = {
   getPagination,
   relyOn,
   freameuUploadImg,
-  randomHexColorCode
+  randomHexColorCode,
+  HOST_NAME
 }

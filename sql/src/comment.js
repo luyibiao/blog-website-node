@@ -25,6 +25,10 @@ const sql = {
   // 获取评论
   query(key, req) {
     return query(key, req)
+  },
+  // 查看评论数
+  queryCommonets() {
+    return 'select count(*) as count from comment where article_id = ?'
   }
 }
 

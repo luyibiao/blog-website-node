@@ -1,7 +1,7 @@
 
 const mysql = require('mysql')
 function insertCode(params, keys) {
-  let s = `insert into verCode set `
+  let s = `insert into vercode set `
   keys.map((v, index) => {
     s += `${index === 0 ? '' : ','}${v}=${mysql.escape(params[v])}`
   })
@@ -27,7 +27,7 @@ function updateUser(params, keys) {
 
 const sql = {
   // 查询有效验证码
-  queryVerCode: 'select * from verCode where userEmail = ? and count > 0',
+  queryVerCode: 'select * from vercode where userEmail = ? and count > 0',
   // 批量修改count次数值
   batchUpdateCount: 'update vercode set count = 0 where id in(?)',
   // 单独修改count 的值
@@ -39,7 +39,7 @@ const sql = {
   // 查询用户名是否已注册
   queryUser: 'select * from bloguser where userName = ? or userEmail = ?',
   // 查询有效验证码数据
-  queryEffCode: 'select * from verCode where userEmail = ? and code = ? and count > 0',
+  queryEffCode: 'select * from vercode where userEmail = ? and code = ? and count > 0',
   // 写入用户数据
   addBlogUser: function(params, keys) {
     return addBlogUser(params, keys)

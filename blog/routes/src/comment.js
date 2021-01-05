@@ -14,5 +14,10 @@ global.$blogRouter.post('/queryComments', (req, res, next) => {
   comment.queryComments(req, res, next)
 })
 
+// 获取评论数
+global.$blogRouter.post('/queryCommonetCount', (req, res, next) => {
+  comment.queryCommonetCount(req, res, next)
+})
+
 
 module.exports = global.$blogRouter

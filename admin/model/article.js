@@ -67,10 +67,11 @@ async function add(req, res) {
   const params = global.$overall.getReqParamsAll(req)
   if (!check(params, res)) return
   if (params.logoPath) {
-    const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
-      res.json(global.$resultFn.resultErr(e))
-    })
-    params.logo = u.url
+    // const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
+    //   res.json(global.$resultFn.resultErr(e))
+    // })
+    const a = params.logoPath.split('/') || []
+    params.logo = global.$overall.HOST_NAME + '/images/' + a[a.length - 1]
   }
   const arrs = [
     'title', 'author', 'label', 'content', 'contentdesc', 'type', 'child_type', 'status', 'logo'
@@ -93,7 +94,6 @@ async function query(req, res) {
   const arrs = [
     'title', 'create_time', 'type', 'author', 'status', 'child_type', 'hot_comments', 'topping', 'recommend'
   ]
-  console.log(sql.query(req, arrs))
   global.$db.queryArgs(sql.query(req, arrs), pagesList, (err, result) => {
     if (err) {
       res.json(global.$resultFn.resultErr(err))
@@ -120,10 +120,12 @@ async function update(req, res) {
     return
   }
   if (params.logoPath) {
-    const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
-      res.json(global.$resultFn.resultErr(e))
-    })
-    params.logo = u.url
+    // const u = await global.$overall.freameuUploadImg(params.logoPath, params.logonName).catch(e => {
+    //   res.json(global.$resultFn.resultErr(e))
+    // })
+    // params.logo = u.url
+    const a = params.logoPath.split('/') || []
+    params.logo = global.$overall.HOST_NAME + '/images/' + a[a.length - 1]
   }
   if (!params.logoPath && !params.logo) {
     params.logo = ''
@@ -131,9 +133,7 @@ async function update(req, res) {
   const arrs = [
     'title', 'author', 'label', 'content', 'contentdesc', 'type', 'child_type', 'status', 'logo', 'hot_comments', 'topping', 'id', 'recommend'
   ]
-  console.log(sql.update(params, ...arrs), 'sql.update(params, ...arrs)')
   global.$db.queryArgs(sql.update(params, ...arrs), [params.id], (err, result) => {
-    console.log('oooooooooooooooooooooooooooooooo')
     if (err) {
       res.json(global.$resultFn.resultErr(err))
     } else {
