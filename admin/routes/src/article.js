@@ -26,5 +26,10 @@ global.$router.post('/delete', function(req, res, next) {
   model.deleteDetail(req, res, next)
 })
 
+// 获取评论数
+global.$router.post('/queryCommonetCount', function(req, res, next) {
+  model.queryCommonetCount(req, res, next)
+})
+
 
 module.exports = global.$router

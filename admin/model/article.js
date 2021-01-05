@@ -1,5 +1,5 @@
 
-const {article: sql, label: labSql, banner: bannerSql } = global.$sql('article', 'label', 'banner')
+const {article: sql, label: labSql, banner: bannerSql, comment } = global.$sql('article', 'label', 'banner', 'comment')
 
 function check(params, res) {
   if (params.check) return true
@@ -171,10 +171,25 @@ function deleteDetail(req, res) {
   return
 }
 
+// 查看评论数
+function queryCommonetCount(req, res) {
+  const params = global.$overall.getReqParamsAll(req)
+  global.$db.queryArgs(comment.queryCommonets(), [params.id], (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+    } else {
+      res.json(global.$resultFn.resultSuccess(result))
+    }
+    return
+  })
+  return
+}
+
 module.exports = {
   add,
   query,
   update,
   quertyDetail,
-  deleteDetail
+  deleteDetail,
+  queryCommonetCount
 }
