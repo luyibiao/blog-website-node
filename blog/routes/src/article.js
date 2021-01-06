@@ -29,4 +29,13 @@ global.$blogRouter.post('/setWatchNum', (req, res, next) => {
   article.setWatchNum(req, res, next)
 })
 
+// 查询上一条
+global.$blogRouter.post('/queryUpArticle', (req, res, next) => {
+  article.queryUpArticle(req, res, next)
+})
+// 查询下一条
+global.$blogRouter.post('/queryNextArticle', (req, res, next) => {
+  article.queryNextArticle(req, res, next)
+})
+
 module.exports = global.$blogRouter

@@ -85,6 +85,14 @@ const sql = {
   querylast_insert_id() {
     return 'SELECT LAST_INSERT_ID() as new_id'
   },
+  // 查询下一条
+  queryNextArticle() {
+    return `select * from article where id = (select id from article where id > ? order by id desc limit 1);`
+  },
+  // 查询上一条
+  queryUpArticle() {
+    return `select * from article where id = (select id from article where id < ? order by id desc limit 1);`
+  }
 }
 
 module.exports = sql

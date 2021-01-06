@@ -97,6 +97,34 @@ function setWatchNum(req, res) {
   return
 }
 
+// 查询上一条
+function queryUpArticle(req, res) {
+  const params = global.$overall.getReqParamsAll(req)
+  global.$db.queryArgs(article.queryUpArticle(), [params.id],  (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+      return
+    }
+    res.json(global.$resultFn.resultSuccess(result))
+    return
+  })
+  return
+}
+
+// 查询下一条
+function queryNextArticle(req, res) {
+  const params = global.$overall.getReqParamsAll(req)
+  global.$db.queryArgs(article.queryNextArticle(), [params.id],  (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+      return
+    }
+    res.json(global.$resultFn.resultSuccess(result))
+    return
+  })
+  return
+}
+
 
 
 module.exports = {
@@ -105,5 +133,7 @@ module.exports = {
   queryArticleType,
   queryRandowArticle,
   queryArticleChildType,
-  setWatchNum
+  setWatchNum,
+  queryUpArticle,
+  queryNextArticle
 }
