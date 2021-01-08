@@ -15,8 +15,23 @@ global.$blogRouter.post('/queryMineInfo', (req, res, next) => {
   home.queryMineInfo(req, res, next)
 })
 
-global.$blogRouter.get('/aa', (req, res, next) => {
-  res.json('电饭锅被警方发')
+
+// 转发网易云热评歌曲api 
+global.$blogRouter.post('/queryWYYmusic', function(req, res, next ) {
+  const request = require('request');
+  // 获取网易云音乐接口
+  const url = 'https://tenapi.cn/comment/'
+  request(url, function (err, response, body) {
+    try {
+      if (!err && response.statusCode === 200) {
+        res.send(global.$resultFn.resultSuccess(JSON.parse(body).data, false));
+      } else {
+        res.json(global.$resultFn.resultErr(err))
+      }
+    } catch (error) {
+      res.json(global.$resultFn.resultErr(err))
+    }
+  })
 })
 
 module.exports = global.$blogRouter
