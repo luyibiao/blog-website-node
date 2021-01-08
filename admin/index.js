@@ -10,7 +10,7 @@ function getCookie(req) {
 }
 
 const rouArrs = [
-  '/user/login', '/type/queryArticleType', '/upload/upload'
+  '/user/login', '/type/queryArticleType', '/upload/upload', '/upload1/upload1'
 ]
 // token检验
 router.use((req, res, next) => {
