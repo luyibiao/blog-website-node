@@ -26,10 +26,9 @@ global.$router.post('/upload1', function(req, res, next) {
               fName =fName + ".png";
               break;
         }
-      console.log(file)
+      const s = file.path.replace(/\\/g,'/').split('/')
       res.json(global.$resultFn.resultSuccess({
-        ...file,
-        fName
+        path: global.$overall.HOST_NAME + '/images/' + s[s.length - 1]
       }))
     })
     return
