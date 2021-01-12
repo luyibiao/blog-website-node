@@ -22,7 +22,7 @@ function createToken(info = {
   name: 'admin'
 }) {
  // 获取签发 JWT 时需要用的密钥
- return jwt.sign(info, list[0], { algorithm: 'RS256', expiresIn: 60 * 60 * 2 })
+ return jwt.sign(info, list[0], { algorithm: 'RS256', expiresIn: 60 * 60 * 5 })
 }
 
 // 验证 Token
