@@ -37,5 +37,12 @@ global.$blogRouter.post('/queryUpArticle', (req, res, next) => {
 global.$blogRouter.post('/queryNextArticle', (req, res, next) => {
   article.queryNextArticle(req, res, next)
 })
-
+// 根据父级栏目查询分类栏目
+global.$blogRouter.post('/queryTypeOrSecondsType', (req, res, next) => {
+  article.queryTypeOrSecondsType(req, res, next)
+})
+// 根据父级栏目查询分类栏目
+global.$blogRouter.post('/querySecondTypeCount', (req, res, next) => {
+  article.querySecondTypeCount(req, res, next)
+})
 module.exports = global.$blogRouter

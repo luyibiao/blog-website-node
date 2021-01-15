@@ -33,7 +33,7 @@ const sql = {
     return query(params)
   },
   queryDetail: function() {
-    return `select b.*, a.title as article_title from banner as b left join article as a on b.id = ? and b.article_id = a.id`
+    return `select b.*, a.title as article_title from banner as b left join article as a on b.article_id = a.id where b.id = ?`
   },
   update: function(params, keys) {
     return update(params, keys)

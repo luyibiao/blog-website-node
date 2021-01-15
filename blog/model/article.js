@@ -80,6 +80,30 @@ function queryArticleChildType(req, res) {
   return
 }
 
+// 根据一级栏目code查询二级栏目
+function queryTypeOrSecondsType(req, res) {
+  global.$db.queryArgs(articleTypeSql.queryTypeOrSecondsType, global.$overall.getArgs(req, 'articletype_code') , (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+      return
+    }
+    res.json(global.$resultFn.resultSuccess(result, false))
+  })
+  return 
+}
+
+// // 根据一级栏目code查询二级栏目总数
+function querySecondTypeCount(req, res) {
+  global.$db.queryArgs(articleTypeSql.querySecondTypeCount, global.$overall.getArgs(req, 'articletype_code') , (err, result) => {
+    if (err) {
+      res.json(global.$resultFn.resultErr(err))
+      return
+    }
+    res.json(global.$resultFn.resultSuccess(result, false))
+  })
+  return 
+}
+
 // 设置观看数
 function setWatchNum(req, res) {
   const params = global.$overall.getReqParamsAll(req)
@@ -135,5 +159,7 @@ module.exports = {
   queryArticleChildType,
   setWatchNum,
   queryUpArticle,
-  queryNextArticle
+  queryNextArticle,
+  queryTypeOrSecondsType,
+  querySecondTypeCount
 }

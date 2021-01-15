@@ -127,7 +127,7 @@ async function update(req, res) {
     const a = params.logoPath.split('/') || []
     params.logo = global.$overall.HOST_NAME + '/images/' + a[a.length - 1]
   }
-  if (!params.logoPath && !params.logo) {
+  if (!params.logoPath && !params.logo && !params.check) {
     params.logo = ''
   }
   const arrs = [

@@ -118,7 +118,29 @@ a.articletype_id = pa.id
   // 修改侧边栏
   updateSideColumn: function(params, keys) {
     return updateSideColumn(params, keys)
-  }
+  },
+  // 根据一级栏目查询二级栏目带总数
+  querySecondTypeCount: `SELECT
+    a.*,
+    pa.name as articletype_name,
+    (
+    SELECT
+      count(1)
+    FROM
+      article
+    WHERE
+      article.child_type = a.CODE
+    ) 'article_total'
+  FROM
+    articletype_item a 
+  left JOIN
+    articletype as pa
+  ON
+  a.articletype_id = pa.id
+  WHERE
+  a.articletype_code = ?
+  ORDER BY a.create_time desc
+  `
 }
 
 module.exports = sql
